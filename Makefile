@@ -27,9 +27,9 @@ venv:
 	virtualenv venv --python=python2.7
 	
 deps:
-	pip install -r requirements.txt
-	npm install
-	bower install
+	-pip install -r requirements.txt
+	-npm install
+	-bower install
 	
 .PHONY: debug \
 	deps \
