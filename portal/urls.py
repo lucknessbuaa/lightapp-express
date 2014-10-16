@@ -8,5 +8,6 @@ urlpatterns = patterns('portal.views',
     url(r'^send$', 'send'),
     url(r'^send/add$', 'addSendOrder'),
     url(r'^store$', 'store'),
-    url(r'^profile$', 'profile')
+    url(r'^profile$', 'profile'),
+    url(r'^rule$', 'rule')
 )

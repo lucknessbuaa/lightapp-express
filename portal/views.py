@@ -155,3 +155,7 @@ def profile(request):
         logger.exception('fail to update account')
         return render_json({'ret_code': 1001})
 
+
+def rule(request):
+    return render(request, 'portal/rule.html')
+
