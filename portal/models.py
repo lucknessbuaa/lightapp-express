@@ -7,3 +7,6 @@ class Account(models.Model):
     user = models.ForeignKey(User)
     openid = models.CharField(max_length=128)
 
+    def __unicode__(self):
+        return self.openid
+
