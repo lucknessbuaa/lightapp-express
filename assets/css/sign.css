@@ -1,3 +1,7 @@
+.well {
+	background-color: #fff;
+	border: none;
+}
 #signup {
 	margin: 15px;
 }
