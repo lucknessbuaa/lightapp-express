@@ -1,10 +1,83 @@
 {% extends "base.html" %}
 
 {% block css %}
-{{ super }}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/menu.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/send.css">
+{{ block.super }}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/profile.css">
 {% endblock %}
 
 {% block body %}
+<div class="container">
+    <div class="info">
+        <span class="username"><b>用户名:</b> {{ request.user }}</span>
+        &nbsp;
+        <span class="label label-success">余额: ￥0.0</span>
+        &nbsp;
+        <span class="label label-primary">积分: 0</span>
+    </div>
+
+    <div class="order">
+        <a class="history btn btn-default btn-xs">我的快递订单</a>
+        <a class="rule btn btn-default btn-xs">余额积分规则</a>
+    </div>
+
+    <div class="edit">
+        <form action="">
+            <div class="form-group clearfix">
+                    <select class="form-control" name="university">
+                        <option value="">选择学校</option>
+                        <option value="1">南京大学</option>
+                    </select>
+                    <select class="form-control" name="part">
+                        <option value="1">仙林校区</option>
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class='glyphicon glyphicon-user'></span>
+                    </div>
+                    <input class="form-control" type="text" name='name' placeholder='姓 名'>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="gender" id="option1" checked>男
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="gender" id="option2">女
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class='glyphicon glyphicon-signal'></span>
+                    </div>
+                    <input class="form-control" type="text" name='phone' placeholder='手机号码'>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <p>
+                    宿舍地址: <span class="gray">无需再填学校和校区</span>
+                </p>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class='glyphicon glyphicon-map-marker'></span>
+                    </div>
+                    <input class="form-control" type="text" name='address' placeholder=' 例如： 2B幢206舍 '>
+                </div>
+            </div>
+
+            <input class="btn btn-success btn-lg btn-block" type="submit" value='保存修改'>
+        </form>
+    </div>
+</div>
+
+<script type='text/javascript' src='{{ STATIC_URL }}components/jquery/dist/jquery.min.js'></script>
+<script type='text/javascript' src='{{ STATIC_URL }}components/bootstrap/dist/js/bootstrap.min.js'></script>
 {% endblock %}
