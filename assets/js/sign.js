@@ -32,7 +32,7 @@ $(function(){
         $('#submitButton').prop('disabled',true);
 		$.post("/app/send/add",data,function(json){
 			if(json.ret_code==0){
-				$('div.well').html('<p><b>订单已提交成功！</b></p> <p>您可以在 <a href="/profile?authcode=test">个人中心</a> 标签页下的链接 <br><a href="/order/my?authcode=test">我的订单</a> 中跟踪您的订单处理状态</p>'
+				$('div.well').html('<p><b>订单已提交成功！</b></p> <p>您可以在 <a href="profile">个人中心</a> 标签页下的链接 <br><a href="order">我的订单</a> 中跟踪您的订单处理状态</p>'
 						+ '<br><p class="tips"><b>目前</b>代领订单有三种状态:</p>'
 						+ '<p><span class="label" style="background-color:#999">处理中</span>&nbsp;&nbsp;<span class="tips">已收到您的订单,正在处理中</span></p>'
 						+ '<p><span class="label label-info">已取件,待配送</span>&nbsp;&nbsp;<span class="tips">已领到快递,等待送到宿舍</span></p>'
