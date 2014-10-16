@@ -2,9 +2,137 @@
 
 {% block css %}
 {{ block.super }}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/menu.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/send.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/sign.css">
 {% endblock %}
 
 {% block body %}
+<div class="well">
+	<form role="form" id="signup" class="form-horizontal" method="post" action="#" onsubmit="return false;">
+		<div class="form-group">
+		    <select class="form-control input-sm" name="company" id="company">
+	            <option value="0">请选择快递公司</option>
+            	<option value="1">圆通</option>
+            	<option value="2">中通</option>
+            	<option value="3">申通</option>
+            	<option value="4">韵达</option>
+            	<option value="5">顺丰</option>
+            	<option value="6">百世汇通</option>
+            	<option value="7">EMS</option>
+            	<option value="8">天天</option>
+            	<option value="9">晟邦</option>
+            	<option value="10">亚马逊</option>
+            	<option value="12">唯品会</option>
+            	<option value="13">中国邮政</option>
+            	<option value="16">京东</option>
+            	<option value="100">其它公司</option>
+	        </select>
+		</div>
+		
+		<div class="tips">若替他人下单，请修改以下收件人信息</div>
+		
+		<div class="form-group">
+	        <div class="input-group input-group-sm col-xs-5 pull-left">
+	        	<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+	        	<input type="text" id="name" name="name" maxlength="16" placeholder="收件人姓名" value="测试" class="form-control input-sm">
+	        </div>
+	        <div class="input-group input-group-sm col-xs-push-1 col-xs-6">
+	        	<div class="input-group-addon"><span class="glyphicon glyphicon-signal"></span></div>
+	        	<input type="tel" id="phone" name="phone" maxlength="11" placeholder="手机号码" value="13333333333" class="form-control input-sm">
+	        </div>
+		</div>
+		
+		<div class="form-group">
+			<div class="input-group input-group-sm">
+	        	<div class="input-group-addon"><span class="glyphicon glyphicon-map-marker"></span></div>
+				<input type="text" style="width:120px" id="destination" name="destination" placeholder="收货地址（宿舍）" value="测试地址" class="form-control input-sm">
+				<a href="#" class="feeRule-link">收费规则</a>
+			</div>
+		</div>
+
+      	<div class="form-group" style="display:none">
+		    <label class="checkbox">
+	        <input id="fast" name="fast" type="checkbox" class="form-control input-sm">加急派送(加收50%)
+	        </label>
+		</div>
+
+		<div class="form-group">
+	        <span>备注信息:</span><br> <span class="tips"> 可复制快递公司短信或备注个人要求</span><br>
+		    <textarea class="form-control" rows="4" name="notes"></textarea>
+		</div>
+
+		<p class="warning">请在下午五点前下单。由于人手原因, 校门口快递最近暂时不代领 &gt;_&lt;</p>
+
+		<div class="form-group">
+		    <button id="submitButton" type="button" class="btn btn-success btn-large btn-block" class="form-control">提交订单</button>
+		</div>
+	</form>
+</div>
+<div id="price-modal" class="modal fade">
+	<div class="modal-dialog">
+       	<div class="modal-content">
+       		<div class="modal-body">
+       			<p style="font-size:14px; margin:10px 3px">代领快递 起步价2元，适合文件类或者较轻的小件块递；正常大小的快递1.5千克以下3元；3千克以下4元；4.5千克以下5元；以此类推，十元封顶。 快递当天晚上 21:00 至 22:00 配送到宿舍</p>
+	       		<div align="center">
+	       			<button class="btn btn-primary" style="margin:5px 0" data-dismiss="modal">确 定</button>
+	       		</div>
+       		</div>
+       	</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="{{ STATIC_URL }}components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+	var phoneValidator = /^\d{11}$/;	
+	$("#submitButton").bind("click",function(){
+		if($("#company").val()=="0"){
+			alert("请选择快递公司");
+			return;
+		};
+		if($("#name").val()==""){
+			alert("请输入收件人姓名");
+			return;
+		};
+		if($("#phone").val()==""){
+			alert("请输入收件人手机号");
+			return;
+		};
+		if($("#destination").val()==""){
+			alert("请输入收件人宿舍地址");
+			return;
+		};
+		
+
+		var data = $("#signup").serialize();
+
+		data += "&type=0&authcode=test";
+        if($('#fast').is( ":checked" )){
+            data += "&fast=1";
+        }else{
+            data += "&fast=0";
+        }
+        
+        $("#submitButton").html("正在提交...");
+        $('#submitButton').prop('disabled',true);
+		$.post("/order/save",data,function(json){
+			if(json.code==200){
+				$('div .well').html('<p><b>订单已提交成功！</b></p> <p>您可以在 <a href="/profile?authcode=test">个人中心</a> 标签页下的链接 <br><a href="/order/my?authcode=test">我的订单</a> 中跟踪您的订单处理状态</p>'
+						+ '<br><p class="tips"><b>目前</b>代领订单有三种状态:</p>'
+						+ '<p><span class="label">处理中</span>&nbsp;&nbsp;<span class="tips">已收到您的订单,正在处理中</span></p>'
+						+ '<p><span class="label label-info">已取件,待配送</span>&nbsp;&nbsp;<span class="tips">已领到快递,等待送到宿舍</span></p>'
+						+ '<p><span class="label label-success">已完成</span>&nbsp;&nbsp;<span class="tips">订单已送达完成</span></p>'						
+				);
+			}else {
+                alert(json.msg);
+			}
+            $("#submitButton").html("提交订单");
+            $('#submitButton').prop('disabled',false);
+
+		},"json");
+	});
+	
+	$(".feeRule-link").bind("click",function(){
+		$('#price-modal').modal({backdrop:true,keyboard:true,show:true});
+	});
+</script>
 {% endblock %}

@@ -1,0 +1,22 @@
+#signup {
+	margin: 15px;
+}
+.tips {
+	margin: -5px 0 5px 0;
+	color: gray;
+	font-size: 13px;
+}
+#destination {
+	border-radius: 0 3px 3px 0;
+}
+.feeRule-link {
+	font-size: 13px;
+	margin-left: 15px;
+	position: absolute;
+	bottom: 0;
+}
+.warning {
+	margin: 10px -15px;
+	color: red;
+	font-size: 12px;
+}
