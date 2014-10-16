@@ -1,19 +1,13 @@
 body {}
 
 .banner {
-    height: 200px;
+    height: 152px;
     margin-bottom: 10px;
-}
-
-@media screen and (max-height: 420px) {
-    .banner {
-        height: 130px;
-    }
 }
 
 @media screen and (min-width: 360px) {
     .banner {
-        height: 225px;
+        height: 171px;
     }
 }
 
@@ -26,8 +20,8 @@ body {}
 
 .banner .container .title {
     color: #fff;
-    font-size: 18px;
-    padding: 6px 12px;
+    font-size: 16px;
+    padding: 8px 12px;
     background: rgba(0, 0, 0, .3);
 
     position: absolute;
@@ -37,13 +31,13 @@ body {}
 }
 
 .coupons {
-    height: 50px;
+    height: 72px;
     margin-bottom: 10px;
 }
 
 @media screen and (min-width: 360px) {
     .coupons {
-        height: 75px;
+        height: 80px;
     }
 }
 
@@ -54,9 +48,10 @@ body {}
 .coupons .container .entry {
     display: block;
     height: 100%;
-    border: 1px solid #ccc;
     margin-left: -5px;
     margin-right: -5px;
+    background: url(../images/coupons.png) center center no-repeat;
+    background-size: 100% 100%;
 }
 
 .functions .row {
@@ -72,5 +67,39 @@ body {}
 .functions .fn > a {
     display: block;
     height: 100px;
-    border: 1px solid #ccc;
+    position: relative;
+}
+
+.functions .fn > a div {
+    font-weight: lighter;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    font-size: 16px;
+    padding: 6px 12px;
+    color: #fff;
+}
+
+.functions .fn > a div span {
+    font-size: 18px;
+}
+
+.functions .fn > a[href=sign] {
+    background: url(../images/sign.png) 90% 50% no-repeat #00aeef;
+    background-size: 70px 70px;
+}
+
+.functions .fn > a[href=send] {
+    background: url(../images/send.png) 90% 50% no-repeat #f67542;
+    background-size: 70px 70px;
+}
+
+.functions .fn > a[href=store] {
+    background: url(../images/store.png) 90% 50% no-repeat #f8a900;
+    background-size: 70px 70px;
+}
+
+.functions .fn > a[href=profile] {
+    background: url(../images/profile.png) 90% 50% no-repeat #01cf97;
+    background-size: 70px 70px;
 }

@@ -7,7 +7,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
 
-LOGIN_URL= "/welcome"
+LOGIN_URL= "/app/login"
 
 # Application definition
 
@@ -22,6 +22,31 @@ INSTALLED_APPS = (
     'portal',
     'social_auth',
     "django_tables2"
+)
+
+BAIDU_CLIENT_KEY = 'NI3lwuv8vVGBGGC0mzmAmIL3'
+BAIDU_CLIENT_SECRET = 'oY1y5mIrvNVMsG4XQGR2lvByINGzLCkg'
+
+WEIBO_CLIENT_KEY = '3131404119'
+WEIBO_CLIENT_SECRET = '93d4c32f83e73f7d352e858001ce9198'
+
+QQ_CLIENT_KEY = '101159743'
+QQ_CLIENT_SECRET = 'f7297c665355649d36ec6c518f2659f1'
+
+SOCIAL_AUTH_UID_LENGTH = 128
+SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 128
+SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 128
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 128
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/app/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/app/'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = True
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.contrib.weibo.WeiboBackend',
+    'oauth.qq.QQBackend',
+    'oauth.baidu.BaiduBackend',
+    'django.contrib.auth.backends.ModelBackend'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -67,7 +92,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
