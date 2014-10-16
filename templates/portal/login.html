@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>南快递</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="{{ STATIC_URL }}components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header"></div>
+        <a href="/oauth/login/baidu" class="btn btn-lg btn-primary btn-block baidu">
+            <i class="baidu"></i>使用百度账号登录
+        </a>
+        
+        <div class="social">
+            <a href="/oauth/login/weibo" class="btn btn-block btn-default weibo">
+                <i class="weibo"></i>微博登录
+            </a>
+            <a href="/oauth/login/qq" class="btn btn-block btn-default qq">
+                <i class="qq"></i>QQ登录
+            </a>
+        </div>
+    </div>
+</body>
+</html>

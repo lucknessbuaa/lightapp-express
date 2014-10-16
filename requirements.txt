@@ -16,3 +16,5 @@ redis
 days
 
 django-debug-toolbar
+
+django-social-auth

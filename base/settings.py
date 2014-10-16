@@ -2,6 +2,11 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+SECRET_KEY = 'zuvp4036q9zpc!)0sac=qhk!%udh^5dcavrr@lc6c)m41f3nz%'
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+ALLOWED_HOSTS = ['*']
+
 LOGIN_URL= "/welcome"
 
 # Application definition
@@ -14,10 +19,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base',
-    'backend',
+    'portal',
+    'social_auth',
     "django_tables2"
 )
-
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -38,12 +43,8 @@ WSGI_APPLICATION = 'base.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_mysqlpool.backends.mysqlpool',
-        'NAME': 'community',
-        'USER': 'root',
-        'PASSWORD': 'nameLR9969',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3'
     }
 } 
 
@@ -78,7 +79,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "assets")
+    os.path.join(BASE_DIR, "assets"),
 )
 
 TEMPLATE_DIRS = (
@@ -96,3 +97,4 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request"
 )
 
+from .loggers import LOGGING

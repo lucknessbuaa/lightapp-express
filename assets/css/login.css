@@ -1,0 +1,28 @@
+.header {
+    background: url(../images/head.png) center center no-repeat;
+    background-size: 80px 80px;
+    height: 80px;
+    margin: 20px 0px;
+}
+
+a.baidu {
+    margin-bottom: 10px;
+}
+
+.social {
+    overflow: hidden;
+}
+
+.social a {
+    display: block;
+    width: 48%;
+}
+
+.social a.weibo {
+    float: left;
+}
+
+.social a.qq {
+    margin-top: 0px;
+    float: right;
+}

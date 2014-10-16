@@ -1,0 +1,76 @@
+body {}
+
+.banner {
+    height: 200px;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-height: 420px) {
+    .banner {
+        height: 130px;
+    }
+}
+
+@media screen and (min-width: 360px) {
+    .banner {
+        height: 225px;
+    }
+}
+
+.banner .container {
+    position: relative;
+    height: 100%;
+    background: url(../images/banner-bg.png) center center no-repeat;
+    -webkit-background-size: cover;
+}
+
+.banner .container .title {
+    color: #fff;
+    font-size: 18px;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, .3);
+
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+.coupons {
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+@media screen and (min-width: 360px) {
+    .coupons {
+        height: 75px;
+    }
+}
+
+.coupons .container {
+    height: 100%;
+}
+
+.coupons .container .entry {
+    display: block;
+    height: 100%;
+    border: 1px solid #ccc;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.functions .row {
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-top: -5px;
+}
+
+.functions .fn {
+    padding: 5px;
+}
+
+.functions .fn > a {
+    display: block;
+    height: 100px;
+    border: 1px solid #ccc;
+}
