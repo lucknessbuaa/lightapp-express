@@ -6,6 +6,7 @@ urlpatterns = patterns('portal.views',
     url(r'^logout$', 'logout'),
     url(r'^sign$', 'sign'),
     url(r'^send$', 'send'),
+    url(r'^send/add$', 'addSendOrder'),
     url(r'^store$', 'store'),
     url(r'^profile$', 'profile')
 )

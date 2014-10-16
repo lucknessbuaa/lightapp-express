@@ -1,10 +1,49 @@
-{% extends "base.html" %}
-
-{% block css %}
-{{ block.super }}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/menu.css">
+{% extends "base.html" %} 
+{% block css %} 
+{{ block.super }} 
 <link rel="stylesheet" href="{{ STATIC_URL }}css/send.css">
-{% endblock %}
+{% endblock %} 
 
 {% block body %}
+<div class="container">
+    <form>
+        <div class="form-group">
+            <select name="company" class='form-control'>
+                <option value="6">百世汇通</option>
+                <option value="5">顺丰</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <p class="normal">选择上门收件时间:<span class="gray">（默认在宿舍收件）</span></p>
+            <select style="width:48%; float: left" name="fetchdate" class='form-control'>
+                {% for day in days %}
+                <option value="{{ forloop.counter0 }}">{{ day|date:"n月j日" }}</option>
+                {% endfor %}
+            </select>
+
+            <select style="width:48%; float: right" name="fetchperiod" class='form-control'>
+                <option value="20:00-21:00">20:00-21:00</option>
+                <option value="21:00-22:00">21:00-22:00</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <a style="font-size:12px" href="http://nankuaidi.sinaapp.com/app/price.php?authcode=test">查看快递公司收费标准</a>
+            <p></p>
+            <span>备注信息:</span>
+            <br> <span class="gray"> 可备注个人特别要求 </span>
+            <br>
+            <textarea class="form-control" rows="3" name="notes"></textarea>
+        </div>
+
+        <p class="warning"></p>
+
+        <input type="submit" class="btn btn-success btn-block" value='提交订单'>
+    </form>
+</div>
+
+<script type='text/javascript' src='{{ STATIC_URL }}components/jquery/dist/jquery.min.js'></script>
+<script type='text/javascript' src='{{ STATIC_URL }}components/bootstrap/dist/js/bootstrap.min.js'></script>
+<script type='text/javascript' src='{{ STATIC_URL }}js/send.js'></script>
 {% endblock %}

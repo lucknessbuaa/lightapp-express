@@ -1,4 +1,5 @@
 import logging
+import datetime
 import uuid
 import requests
 
@@ -86,7 +87,36 @@ def send(request):
     if not isRegistered(request.user):
         return redirect('/app/profile')
 
-    return render(request, "portal/send.html")
+    days = []
+    now = datetime.datetime.now()
+    for i in range(0, 5):
+        days.append(now + datetime.timedelta(days=i))
+    return render(request, "portal/send.html", {
+        'days': days
+    })
+
+
+@csrf_exempt
+def addSendOrder(request):
+    account = Account.objects.get(user=request.user)
+
+    params = {}
+    params.update(request.POST)
+    params.update({
+        'authcode': account.openid,
+        'type': 1
+    })
+    logger.debug('add send order, params: \n%s', str(params))
+
+    resp = requests.post('http://mcsd.sinaapp.com/order/save', params=params)
+    result = resp.json()
+    if result['code'] == 200:
+        return render_json({'ret_code': 0})
+    else:
+        return render_json({
+            'ret_code': 1001,
+            'msg': result['msg']
+        })
 
 
 @login_required
