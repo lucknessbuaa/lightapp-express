@@ -8,6 +8,7 @@ $(function() {
             company: form.company.value,
             fetchdate: form.fetchdate.value,
             fetchperiod: form.fetchperiod.value,
+            type: 1,
             notes: form.notes.value
         }, 'json').then(function(data) {
             if (data.ret_code === 1001) {

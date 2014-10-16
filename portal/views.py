@@ -103,8 +103,7 @@ def addSendOrder(request):
     params = {}
     params.update(request.POST)
     params.update({
-        'authcode': account.openid,
-        'type': 1
+        'authcode': account.openid
     })
     logger.debug('add send order, params: \n%s', str(params))
 
