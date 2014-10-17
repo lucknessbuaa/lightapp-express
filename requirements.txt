@@ -1,5 +1,19 @@
-django
+#--index-url http://pypi.douban.com/simple
+
+Django
+django-parsley
+django-auth-remember
 django-render-json
+django-render-csv
+django-auth-json
 python-memcached
-requests
 django-social-auth
+django-tables3
+
+underscore.py
+requests
+redis
+days
+
+django-debug-toolbar
+trunkate
