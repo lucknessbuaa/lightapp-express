@@ -144,6 +144,7 @@ def storeItem(request):
     return render(request, "portal/item.html", {'good':good})
 
 
+@csrf_exempt
 @login_required
 def doOrder(request):
     if not isRegistered(request.user):

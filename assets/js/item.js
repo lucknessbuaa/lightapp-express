@@ -1,7 +1,7 @@
 $(function(){
 	var num = 1;
 	var points = $('#points').data('points');
-	$('#buy-btn').bind("click",function(e){
+	$('#buy-btn').click(function(e){
 		$('#order-modal-num').html(num);
 		$('#order-modal-points').html(num*points);
 		$('#order-modal').modal({backdrop:true,keyboard:true,show:true});
