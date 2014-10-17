@@ -31,7 +31,7 @@
 			<span> <b>19点前下单当日送达，19点后次日送达</b></span>
 		</div>
 		<div class="pricedom">
-			<div class="price"><span>兑换需 <b>{{ good.points }} </b>积分</span>/ 份</div>
+			<div class="price"><span>兑换需 <b id="points" data-points="{{ good.points }}">{{ good.points }} </b>积分</span>/ 份</div>
 			<div class="prototal">总计: <span style="font-size:24px;font-weight:600;"><b class="total-int">{{ good.points }}</b>分</span></div>
 		</div>
 	
@@ -49,4 +49,5 @@
 	<div class="footer"><a href="/tmall?authcode=test">返回积分商城首页</a></div>
 </div>
 <script type="text/javascript" src="{{ STATIC_URL }}components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/item.js"></script>
 {% endblock %}
