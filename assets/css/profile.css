@@ -1,0 +1,32 @@
+span.gray {
+    color: gray;
+}
+
+.info, .order {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
+    margin: 20px 0px;
+}
+
+.info span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.edit select.form-control {
+    width: 48%;
+    float: left;
+}
+
+
+.edit select.form-control:first-child {
+    margin-right: 4%;
+}
+
+.order a {
+    color: #428bca;
+}
+
+form {
+    margin-bottom: 15px;
+}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/index.css">
+{% endblock %}
+
+{% block body %}
+    <div class="banner">
+        <div class="container">
+            <div class="title">南快递</div>
+        </div>
+    </div>
+
+    <div class="coupons">
+        <div class="container">
+            <a class="entry" href='coupons'></a>
+        </div>
+    </div>
+
+    <div class="functions">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 fn">
+                    <a href='sign'>
+                        <div>代<span>领</span>快递</div>
+                    </a>
+                </div>
+                <div class="col-xs-6 fn">
+                    <a href='send'>
+                        <div>代<span>寄</span>快递</div>
+                    </a>
+                </div>
+                <div class="col-xs-6 fn">
+                    <a href='store'>
+                        <div>积分商城</div>
+                    </a>
+                </div>
+                <div class="col-xs-6 fn">
+                    <a href='profile'>
+                        <div>个人中心</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
