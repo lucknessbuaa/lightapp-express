@@ -157,6 +157,19 @@ def doOrder(request):
     return render_json(result)
 
 
+@login_required
+def getOrder(request):
+    if not isRegistered(request.user):
+        return redirect('/app/profile')
+    
+    account = Account.objects.get(user=request.user)
+    resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsOrder', params={
+        'authcode': account.openid
+    })
+    result = resp.json()
+    return render(request, "portal/myOrder.html", {'orders':result})
+
+
 @csrf_exempt
 @login_required
 def profile(request):
