@@ -76,17 +76,12 @@ def logout(request):
 
 @login_required
 def sign(request):
-    if not isRegistered(request.user):
-        return redirect('/app/profile')
 
     return render(request, "portal/sign.html")
 
 
 @login_required
 def send(request):
-    if not isRegistered(request.user):
-        return redirect('/app/profile')
-
     days = []
     now = datetime.datetime.now()
     for i in range(0, 5):
@@ -98,6 +93,12 @@ def send(request):
 
 @csrf_exempt
 def addSendOrder(request):
+    if not isRegistered(request.user):
+        return render_json({
+            'ret_code': 1002,
+            'msg': 'error!'
+        })
+
     account = Account.objects.get(user=request.user)
 
     params = {}
@@ -120,8 +121,6 @@ def addSendOrder(request):
 
 @login_required
 def store(request):
-    if not isRegistered(request.user):
-        return redirect('/app/profile')
 
     return render(request, "portal/store.html")
 
