@@ -6,12 +6,10 @@ django-render-csv
 python-memcached
 django-tables3
 
-pillow
 underscore.py
 requests
 redis
 days
 
 django-debug-toolbar
-
 django-social-auth
