@@ -13,6 +13,8 @@ $(function() {
         }, 'json').then(function(data) {
             if (data.ret_code === 1001) {
                 return alert(data['msg'])
+            }else if(data.ret_code === 1002) {
+                return alert('请到个人中心完善个人资料！');
             }
 
             window.location.reload();
