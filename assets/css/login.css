@@ -2,17 +2,18 @@
     background: url(../images/head.png) center center no-repeat;
     background-size: 80px 80px;
     height: 80px;
-    margin: 20px 0px;
+    margin: 20px 0px 40px;
 }
 
 a.baidu {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .social {
     overflow: hidden;
 }
 
+/*
 .social a {
     display: block;
     width: 48%;
@@ -25,4 +26,29 @@ a.baidu {
 .social a.qq {
     margin-top: 0px;
     float: right;
+}
+*/
+
+i.baidu, i.weibo, i.qq {
+    width: 27px;
+    height: 23px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+i.baidu {
+    width: 23px;
+    height: 23px;
+    background: url(../images/baidu.png) center center no-repeat transparent;
+    background-size: 100% 100%;
+}
+
+i.weibo {
+    background: url(../images/weibo.png) center center no-repeat transparent;
+    background-size: 100% 100%;
+}
+
+i.qq {
+    background: url(../images/qq.png) center center no-repeat transparent;
+    background-size: 100% 100%;
 }
