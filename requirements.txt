@@ -1,15 +1,5 @@
-Django
-django-parsley
-django-auth-remember
+django
 django-render-json
-django-render-csv
 python-memcached
-django-tables3
-
-underscore.py
 requests
-redis
-days
-
-django-debug-toolbar
 django-social-auth
