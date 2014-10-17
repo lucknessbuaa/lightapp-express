@@ -5,16 +5,15 @@ django-parsley
 django-auth-remember
 django-render-json
 django-render-csv
+django-auth-json
 python-memcached
+django-social-auth
 django-tables3
 
-uwsgi
-pillow
 underscore.py
 requests
 redis
 days
 
 django-debug-toolbar
-
-django-social-auth
+trunkate
