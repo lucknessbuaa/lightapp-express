@@ -48,6 +48,34 @@
     <hr>
 	<div class="footer"><a href="/tmall?authcode=test">返回积分商城首页</a></div>
 </div>
+<div id="order-modal" class="modal fade" aria-hidden="false" style="display: block;">
+	<div class="modal-dialog">
+       	<div class="modal-content">
+       		<form id="order-info-form" class="modal-body">
+	        	<p><b>订单内容:</b></p>
+	        	{{ good.name }} x <span id="order-modal-num">1</span>份, 共需<span id="order-modal-points">{{ good.points }}</span>积分
+	       		<hr>
+	       		<input type="hidden" name="goodsid" value="9">
+					
+				<input type="text" id="name" name="name" maxlength="12" placeholder="收货人姓名" value="测试" style="width:32%" class="form-control">
+				<input type="tel" id="phone" name="phone" maxlength="11" placeholder="手机号码" value="13333333333" style="width:50%" class="form-control">
+				
+				<div class="input-group">
+			       	<div class="input-group-addon"><span class="glyphicon glyphicon-map-marker"></span></div>
+					<input type="text" id="destination" name="destination" placeholder="送货地址" value="测试地址">
+				</div>
+				<div>
+					<input type="text" name="notes" placeholder="备注信息" class="form-control">
+				</div>
+				<div>
+					<button type="button" class="btn" data-dismiss="modal" style="margin-right:15px">取 消</button>
+					<button id="submit-btn" type="button" class="btn btn-success">提交订单</button>
+				</div>
+			</form>
+       	</div>
+	</div>
+</div>
 <script type="text/javascript" src="{{ STATIC_URL }}components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/item.js"></script>
 {% endblock %}

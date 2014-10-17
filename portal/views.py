@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-  
 import logging
 import datetime
 import uuid
@@ -134,21 +135,26 @@ def storeItem(request):
         return redirect('/app/profile')
 
     goodsid = int(request.GET.get('goodsid'))
-    # params = {'goodsid':goodsid}
-    # resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsById', params = params)
-    # good = resp.json()
-
-    params = {'limit':30}
-    resp = requests.get('http://mcsd.sinaapp.com/api/getGoods', params = params)
-    goods = resp.json()
-    good = {}
-    for item in goods:
-        if item['goodsid'] == goodsid:
-            good = item
-            good['remain'] = good['num'] - good['consumption']
-            good['ratingRange'] = range(good['rating'])
+    params = {'goodsid':goodsid}
+    resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsById', params = params)
+    good = resp.json()
+    good['remain'] = good['num'] - good['consumption']
+    good['ratingRange'] = range(good['rating'])
 
     return render(request, "portal/item.html", {'good':good})
+
+
+@login_required
+def doOrder(request):
+    if not isRegistered(request.user):
+        return {'code':302, 'msg':'请先完善个人信息'}
+
+    params = {}
+    params.update(request.POST)
+    resp = requests.post('http://mcsd.sinaapp.com/tmall/doOrder', params = params)
+    result = resp.json()
+    return render_json(result)
+
 
 @csrf_exempt
 @login_required
