@@ -17,7 +17,6 @@ $(function(){
 			alert("请输入收件人宿舍地址");
 			return;
 		};
-		
 
 		var data = $("#signup").serialize();
 
@@ -39,7 +38,7 @@ $(function(){
 						+ '<p><span class="label label-success">已完成</span>&nbsp;&nbsp;<span class="tips">订单已送达完成</span></p>'						
 				);
 			}else {
-                alert(json.msg);
+                json.ret_code==1002 ? alert('请到个人中心完善个人资料！') : alert(json.msg);
 			}
             $("#submitButton").html("提交订单");
             $('#submitButton').prop('disabled',false);
