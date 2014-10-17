@@ -20,8 +20,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'base',
     'portal',
-    'social_auth',
-    "django_tables2"
+    'social_auth'
 )
 
 BAIDU_CLIENT_KEY = 'NI3lwuv8vVGBGGC0mzmAmIL3'
