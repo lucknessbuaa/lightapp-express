@@ -167,6 +167,9 @@ def getOrder(request):
         'authcode': account.openid
     })
     result = resp.json()
+    
+    # for item in result:
+    #     item['time'] = datetime.datetime.strptime(item['createtime'],'%M %j, %Y')
     return render(request, "portal/myOrder.html", {'orders':result})
 
 
