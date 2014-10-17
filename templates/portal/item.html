@@ -7,25 +7,23 @@
 
 {% block body %}
 <div class=" goods-wrap">
-	<img src="http://ww4.sinaimg.cn/bmiddle/6961837agw1ekp6m14062j209406ujrz.jpg" class="product-image">
+	<img src="{{ good.imgurl }}" class="product-image">
 	<div class="main-item">
-		<p class="item-title">铁观音一袋</p>
+		<p class="item-title">{{ good.name }}</p>
 		<div class="clearfix">
 			<div class="recommend">
 				<span class="title">推荐指数</span> :
+									{% for i in good.ratingRange %}
 									<span class="stars"></span>
-									<span class="stars"></span>
-									<span class="stars"></span>
-									<span class="stars"></span>
-									<span class="stars"></span>
+									{% endfor %}
 							</div>
-			<div class="num">&nbsp;&nbsp;&nbsp;<span>剩余: </span><span> 500  份 </span></div>
+			<div class="num">&nbsp;&nbsp;&nbsp;<span>剩余: </span><span> {{ good.remain }}  份 </span></div>
 			
 		</div>
 		
 		<div class="goods-info">
 			<span class="title">礼品详情</span> :
-			<span> 铁观音7克真空装 ［尝鲜］ 减肥美容提神功效</span>
+			<span>{{ good.description }}</span>
 		</div>
 		
 		<div class="deli-info">
@@ -33,8 +31,8 @@
 			<span> <b>19点前下单当日送达，19点后次日送达</b></span>
 		</div>
 		<div class="pricedom">
-			<div class="price"><span>兑换需 <b>100 </b>积分</span>/ 份</div>
-			<div class="prototal">总计: <span style="font-size:24px;font-weight:600;"><b class="total-int">100</b>分</span></div>
+			<div class="price"><span>兑换需 <b>{{ good.points }} </b>积分</span>/ 份</div>
+			<div class="prototal">总计: <span style="font-size:24px;font-weight:600;"><b class="total-int">{{ good.points }}</b>分</span></div>
 		</div>
 	
 		<div class="numcart clearfix">
@@ -45,10 +43,6 @@
 			</div>
 			<div id="buy-btn" class="btnaddcart clearfix" style="cursor:pointer"><span>立即兑换</span></div>
 		</div>
-		<!-- 
-			<p class="description">榛果黄油可不是榛果做的，而是当你热黄油时黄油将会变成漂亮的琥珀色并同时发出诱人的热榛果香。这样的黄油与我们挪威进口的野生鳕鱼融合在一起，入口即化，嘴中的榛果香和鱼肉的鲜美足以与天堂媲美。</p>
-	 	-->
-	 
 	</div>
 	
     <hr>
