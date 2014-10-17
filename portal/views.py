@@ -11,6 +11,7 @@ from django.contrib.auth import logout as auth_logout
 from django_render_json import render_json
 
 from .models import Account
+from datetime import datetime
 
 
 logger = logging.getLogger(__name__)
@@ -181,8 +182,16 @@ def getRecentSignOrders(user):
 
 @login_required
 def recent(request):
+    signOrders = getRecentSignOrders(request.user)
+    sendOrders = getRecentSendOrders(request.user)
+    logger.debug(signOrders)
+    for item in signOrders:
+        item['createtime'] = datetime.strptime(item['createtime'], '%b %d, %Y %H:%M:%S %p');
+    for item in sendOrders:
+        item['createtime'] = datetime.strptime(item['createtime'], '%b %d, %Y %H:%M:%S %p');
+    
     return render(request, 'portal/recent.html', {
-        'signOrders': getRecentSignOrders(request.user),
-        'sendOrders': getRecentSendOrders(request.user)
+        'signOrders': signOrders,
+        'sendOrders': sendOrders
     })
 
