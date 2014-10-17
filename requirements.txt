@@ -8,7 +8,6 @@ django-render-csv
 python-memcached
 django-tables3
 
-uwsgi
 pillow
 underscore.py
 requests
