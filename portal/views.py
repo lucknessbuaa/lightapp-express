@@ -160,24 +160,27 @@ def rule(request):
 
 
 def getRecentSendOrders(user):
-    return requests.get('http://mcsd.sinaapp.com/api/getOrder', params={
-        'type': 1,
-        'authcode': Account.objects.get(user=user).openid
-    }).json()
+    try:
+        return requests.get('http://mcsd.sinaapp.com/api/getOrder', params={
+            'type': 1,
+            'authcode': Account.objects.get(user=user).openid
+        }).json()
+    except:
+        return []
 
 
 def getRecentSignOrders(user):
-    return requests.get('http://mcsd.sinaapp.com/api/getOrder', params={
-        'type': 0,
-        'authcode': Account.objects.get(user=user).openid
-    }).json()
+    try:
+        return requests.get('http://mcsd.sinaapp.com/api/getOrder', params={
+            'type': 0,
+            'authcode': Account.objects.get(user=user).openid
+        }).json()
+    except:
+        return []
 
 
 @login_required
 def recent(request):
-    if not isRegistered(request.user):
-        return redirect('/app/profile')
-
     return render(request, 'portal/recent.html', {
         'signOrders': getRecentSignOrders(request.user),
         'sendOrders': getRecentSendOrders(request.user)
