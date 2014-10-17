@@ -1,0 +1,172 @@
+.goods-row {
+	height: 20px;
+	vertical-align: bottom;
+	border-bottom: 1px solid #963943;
+	margin-top: 18px;
+	font-weight: 500;
+	color: #963943;
+	font-size: 13px;
+	line-height: 13px
+}
+.well {
+	padding: 10px 5%;
+	background-color: #fff;
+	border: none;
+}
+.goods-wrap ul {
+	width: 100%;
+	overflow: hidden;
+	margin: 0 0 25px 0;
+	list-style: none;
+	-webkit-padding-start: 0;
+}
+.list li {
+	float: left;
+	width: 46%;
+	margin: 3% 2%;
+	list-style: none
+}
+.list li h4 {
+	margin: 9px 0 3px 0
+}
+.list li h4 a {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #333;
+	font-weight: normal;
+	font-size: 14px
+}
+.list li a {
+	display: block;
+	text-decoration: none;
+	overflow: hidden
+}
+.list li p {
+	height: 33px;
+	width: 95%;
+	margin-bottom: 2px;
+	overflow: hidden
+}
+.list li p, .list li p a {
+	font-size: 12px;
+	line-height: 15px;
+	color: #777
+}
+.list li .price {
+	font-size: 13px
+}
+.slash {
+	display: inline-block;
+	padding: 0 2px
+}
+ul li img {
+	width: 100%;
+	border-radius: 4px
+}
+.product-image {
+	width: 100%
+}
+.main-item {
+	padding: 0 10px
+}
+.item-title {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 18px;
+	margin: 10px 0
+}
+.stars {
+	display: inline-block;
+	width: 11px;
+	height: 11px;
+	margin-left: 2px;
+	background: url(../images/star.png) center center no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+	top: 1px
+}
+.recommend {
+	width: 60%;
+	float: left;
+	overflow: hidden;
+	font-size: 14px
+}
+.num {
+	width: 40%;
+	float: left;
+	overflow: hidden;
+	font-size: 14px
+}
+.pricedom {
+	height: 40px;
+	line-height: 40px;
+	border-top: 2px solid #666;
+	border-bottom: 2px solid #666;
+	margin-top: 10px
+}
+.pricedom .price {
+	float: left
+}
+.pricedom .prototal {
+	float: right
+}
+.goods-info {
+	margin-top: 10px;
+	font-size: 13px
+}
+.main-item .title {
+	font-size: 14px;
+	font-weight: 600
+}
+.deli-info {
+	margin-top: 10px;
+	font-size: 12px
+}
+.numbers {
+	float: left;
+	height: 25px;
+	line-height: 25px;
+	padding: 10px 0 !important
+}
+.numcart {
+	margin: 10px 0
+}
+.numbers div {
+	float: left;
+	width: 40px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+	font-size: 18px
+}
+.numb {
+	border-left: 1px solid #333;
+	border-right: 1px solid #333;
+	font-size: 16px;
+	width: 60px !important
+}
+.btnaddcart {
+	float: right;
+	width: 110px;
+	height: 25px;
+	background: url(../images/order.png) center center no-repeat;
+	background-size: 100% 100%;
+	margin-top: 10px
+}
+.btnaddcart span {
+	float: right;
+	width: 95px;
+	text-align: center;
+	color: #fff;
+	line-height: 25px;
+	font-weight: 600
+}
+.footer {
+	font-size: 14px;
+	padding: 0 20px 20px 20px
+}
+.link {
+	border: 1px solid #ccc;
+	padding: 2px 3px;
+	border-radius: 3px;
+}
