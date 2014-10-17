@@ -2,9 +2,29 @@
 
 {% block css %}
 {{ block.super }}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/menu.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/send.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/store.css">
 {% endblock %}
 
 {% block body %}
+<div class="well goods-wrap">
+	<div class="goods-row">
+		<span style="width:52%; display:inline-block">1L.新上线专区</span>
+		<div style="float:right">
+			<span class="link" style="margin: 0"><a href="order">我的商品订单</a></span>
+		</div>
+	</div>
+	<ul class="list">
+		{% for good in goods %}
+		<li>
+			<a href="store/item?goodsid={{ good.goodsid }}"><img class="scrollLoad" src="{{ good.thumburl }}" data-url="{{ good.thumburl }}"></a>
+			<h4><a href="store/item?goodsid={{ good.goodsid }}">{{ good.name }}</a></h4>
+			<p><a href="store/item?goodsid={{ good.goodsid }}">{{ good.description }}</a></p>
+			<div class="price"><span style="color:#222">{{ good.points }}积分<span class="slash">/</span>份</span></div>
+		</li>
+		{% empty %}
+		{% endfor %}
+	</ul>
+	
+</div>
+<script type="text/javascript" src="{{ STATIC_URL }}components/jquery/dist/jquery.min.js"></script>
 {% endblock %}

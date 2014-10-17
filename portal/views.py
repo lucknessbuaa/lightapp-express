@@ -122,8 +122,20 @@ def addSendOrder(request):
 @login_required
 def store(request):
 
-    return render(request, "portal/store.html")
+    params = {'limit':30}
+    resp = requests.get('http://mcsd.sinaapp.com/api/getGoods', params = params)
+    goods = resp.json()
 
+    return render(request, "portal/store.html", {'goods':goods})
+
+@login_required
+def storeItem(request):
+    if not isRegistered(request.user):
+        return redirect('/app/profile')
+
+    goodid = request.GET.get('goodid')
+
+    return render(request, "portal/item.html")
 
 @csrf_exempt
 @login_required
