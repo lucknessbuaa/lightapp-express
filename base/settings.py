@@ -3,8 +3,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = 'zuvp4036q9zpc!)0sac=qhk!%udh^5dcavrr@lc6c)m41f3nz%'
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = False
+TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 LOGIN_URL= "/app/login"
