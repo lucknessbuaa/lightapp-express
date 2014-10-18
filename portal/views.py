@@ -288,3 +288,8 @@ def deleteRecent(request):
     authcode = account.openid
 
     return render_json({'retValue': deleteRecentPackage(authcode, request.POST['orderid'])})
+
+
+def points(request):
+    return render(request, 'portal/points.html')
+
