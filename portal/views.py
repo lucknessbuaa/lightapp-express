@@ -160,7 +160,7 @@ def doOrder(request):
 @login_required
 def getOrder(request):
     if not isRegistered(request.user):
-        return redirect('/app/profile')
+        return render(request, "portal/myOrder.html", {'orders':[]})
     
     account = Account.objects.get(user=request.user)
     resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsOrder', params={
@@ -169,7 +169,7 @@ def getOrder(request):
     result = resp.json()
     
     for item in result:
-        item['time'] = datetime.datetime.strptime(item['createtime'],'%M %j, %Y')
+        item['time'] = datetime.datetime.strptime(item['createtime'],'%b %d, %Y %I:%M:%S %p')
     return render(request, "portal/myOrder.html", {'orders':result})
 
 
