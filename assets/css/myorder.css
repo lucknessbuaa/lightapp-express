@@ -1,0 +1,27 @@
+.well {
+	border: none;
+	background-color: #fff;
+}
+.order-item-div {
+	border-top: 1px #e0e0e0 solid;
+	padding: 5px 0;
+}
+.order-item-div-last {
+	border-bottom: 1px #e0e0e0 solid;
+	margin-bottom: 10px;
+}
+.order-item-div>div {
+	margin: 5px 0;
+}
+.warning {
+	color: red;
+	font-size: 12px;
+}
+.tips {
+	color: gray;
+	font-size: 13px;
+}
+.tips-small {
+	color: gray;
+	font-size: 12px;
+}
