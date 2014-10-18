@@ -12,12 +12,13 @@
 	padding: 10px 5%;
 	background-color: #fff;
 	border: none;
+    margin-bottom: 0px;
 }
 .goods-wrap ul {
 	width: 100%;
 	overflow: hidden;
-	margin: 0 0 25px 0;
 	list-style: none;
+    margin-bottom: 0px;
 	-webkit-padding-start: 0;
 }
 .list li {
