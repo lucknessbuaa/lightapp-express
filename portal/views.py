@@ -169,7 +169,7 @@ def getOrder(request):
     result = resp.json()
     
     for item in result:
-        item['time'] = datetime.datetime.strptime(item['createtime'],'%M %j, %Y')
+        item['time'] = datetime.datetime.strptime(item['createtime'],'%b %d, %Y %I:%M:%S %p')
     return render(request, "portal/myOrder.html", {'orders':result})
 
 
