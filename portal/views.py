@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout as auth_logout
 from django_render_json import render_json
+import django_auth_json
 
 from .models import Account
 
@@ -144,7 +145,6 @@ def addSendOrder(request):
         })
 
 
-@login_required
 def store(request):
 
     params = {'limit':30}
@@ -154,7 +154,6 @@ def store(request):
     return render(request, "portal/store.html", {'goods':goods})
 
 
-@login_required
 def storeItem(request):
     goodsid = int(request.GET.get('goodsid'))
     params = {'goodsid':goodsid}
@@ -167,7 +166,7 @@ def storeItem(request):
 
 
 @csrf_exempt
-@login_required
+@django_auth_json.login_required({'code': 12580})
 def doOrder(request):
     if not isRegistered(request.user):
         return render_json({'code':302, 'msg':'请先完善个人信息'})
