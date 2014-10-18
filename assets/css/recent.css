@@ -14,3 +14,8 @@
 hr {
     margin: 10px 0px;
 }
+
+.warning-large {
+    color: red;
+    font-size: 13px;
+}

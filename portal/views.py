@@ -13,7 +13,6 @@ from django_render_json import render_json
 
 from .models import Account
 
-
 logger = logging.getLogger(__name__)
 
 def updateAccount(user, params):
@@ -230,8 +229,33 @@ def getRecentSignOrders(user):
 
 @login_required
 def recent(request):
+    signOrders = getRecentSignOrders(request.user)
+    sendOrders = getRecentSendOrders(request.user)
+    logger.debug(signOrders)
+    logger.debug(sendOrders)
+    for item in signOrders:
+        item['createtime'] = datetime.datetime.strptime(item['createtime'], '%b %d, %Y %H:%M:%S %p')
+    for item in sendOrders:
+        item['createtime'] = datetime.datetime.strptime(item['createtime'], '%b %d, %Y %H:%M:%S %p')
+    
     return render(request, 'portal/recent.html', {
-        'signOrders': getRecentSignOrders(request.user),
-        'sendOrders': getRecentSendOrders(request.user)
+        'signOrders': signOrders,
+        'sendOrders': sendOrders
     })
 
+def deleteRecentPackage(user, id):
+    try:
+        return requests.post('http://mcsd.sinaapp.com/order/cancel', params={
+            'authcode': user,
+            'orderid': id
+        }).json()
+    except:
+        return []
+
+@csrf_exempt
+@login_required
+def deleteRecent(request):
+    account = Account.objects.get(user=request.user)
+    authcode = account.openid
+
+    return render_json({'retValue': deleteRecentPackage(authcode, request.POST['orderid'])})

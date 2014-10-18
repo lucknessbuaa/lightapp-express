@@ -17,18 +17,19 @@
                 <span class="num-field">{{ order.num }}件</span>&nbsp;&nbsp;
                 {% if order.status == 3 %}
                 <span class="status-field label label-success label-sm">{{ order.statusString }}</span>
+                {% elif order.status == 0 %} 
+                <span class="status-field label label-default label-sm">{{ order.statusString }}</span>
+                <span class="btn-danger label deletePackage">删除</span>
                 {% else %}
                 <span class="status-field label label-default label-sm">{{ order.statusString }}</span>
                 {% endif %}
-
-                <!-- TODO
-                <span class="delete-field"></span>
-                -->
             </p>
-            <span>收件人: {{ order.name }}</span>
-            <span>地址: {{ order.destination }}</span>
-            <span class="warning-large">备注: {{ order.notes }}</span> 
-            <span class="tips">{{ order.createtime }}</span>                       
+            <div>收件人: {{ order.name }}</div>
+            <div>地址: {{ order.destination }}</div>
+            {% if order.notes %}
+                <div class="warning-large">备注: {{ order.notes }}</div>
+            {% endif %}
+            <div class="tips">{{ order.createtime | date:'Y-m-d H:i:s' }}</div>                       
         </div>
         <hr>
     {% empty %}
@@ -47,18 +48,16 @@
                 <span class="num-field">{{ order.num }}件</span>&nbsp;&nbsp;
                 {% if order.status == 3 %}
                 <span class="status-field label label-success label-sm">{{ order.statusString }}</span>
+                {% elif order.status == 0 %}
+                <span class="status-field label label-default label-sm">{{ order.statusString }}</span>
+                <span class="btn-danger label deletePackage">删除</span>
                 {% else %}
                 <span class="status-field label label-default label-sm">{{ order.statusString }}</span>
                 {% endif %}
-                <!-- TODO
-                <span class="delete-field"></span>
-                -->
             </p>
-
-            <!-- TODO
-            <span>快递单号: {{ order.name }}</span>
-            -->
-            <span class="tips">{{ order.createtime }}</span>                       
+            
+            <div>快递单号: {% if order.expressNo %} {{ order.expressNo }} {% else %}未录入{% endif %}</div>
+            <span class="tips">{{ order.createtime | date:'Y-m-d H:i:s' }}</span>                       
         </div>
         <hr>
     {% empty %}
@@ -68,5 +67,8 @@
     <p class="warning">*注 本页最多显示您最近的七条订单记录</p>
 </div>
     
+<script type="text/javascript" src="{{ STATIC_URL }}components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/recent.js"></script>
 {% include "portal/navigation.html" %}
 {% endblock %}
