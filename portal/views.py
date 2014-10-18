@@ -14,6 +14,31 @@ from django_render_json import render_json
 from .models import Account
 
 logger = logging.getLogger(__name__)
+API_TOKEN = 'jinjidexiaoyuan'
+
+
+def md5(s):
+    import hashlib
+    m = hashlib.md5()
+    m.update(s)
+    return m.hexdigest()
+
+
+def addPoints(openid):
+    resp = requests.post('http://mcsd.sinaapp.com/api/sendPoints', params={
+        'authcode': openid,
+        'points': 200,
+        'notes': u'直达号注册奖励',
+        'token': md5(openid+API_TOKEN)
+    })
+
+    try:
+        result = resp.json()
+        if result['code'] != 200:
+            logger.warn('fail to add points, result: %s', str(result))
+    except:
+        logger.exception('fail to add points')
+
 
 def updateAccount(user, params):
     account = Account.objects.get(user=user)
@@ -35,7 +60,7 @@ def registerAccount(user):
         'schoolid': 1,
         'campusid': 1,
         'source': 'baidu_zhidahao',
-        'token': 'jinjidexiaoyuan'
+        'token': API_TOKEN
     }
     params['openid'] = openid
     resp = requests.post('http://mcsd.sinaapp.com/api/addUser', params=params)
@@ -192,6 +217,8 @@ def profile(request):
             logger.warn('user is not register!')
             return render_json({'ret_code': 1001})
             
+        addPoints(account.openid)
+
     try:
         params = {}
         params.update(request.POST)
@@ -243,6 +270,7 @@ def recent(request):
         'sendOrders': sendOrders
     })
 
+
 def deleteRecentPackage(user, id):
     try:
         return requests.post('http://mcsd.sinaapp.com/order/cancel', params={
@@ -251,6 +279,7 @@ def deleteRecentPackage(user, id):
         }).json()
     except:
         return []
+
 
 @csrf_exempt
 @login_required
