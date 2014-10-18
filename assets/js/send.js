@@ -4,7 +4,7 @@ $(function() {
     $form.submit(function(e) {
         e.preventDefault();
 
-        $('#submitButton').html('正在提交...');
+        $('#submitButton').val('正在提交...');
         $('#submitButton').prop('disabled', true);
         $.post('/app/send/add', {
             company: form.company.value,
@@ -24,13 +24,14 @@ $(function() {
 						+ '<p><span class="label label-info">已收件,待寄出</span>&nbsp;&nbsp;<span class="tips">已上门收件,等待寄出</span></p>'
 						+ '<p><span class="label label-success">已完成</span>&nbsp;&nbsp;<span class="tips">订单已寄送完成</span></p>'						
 				);
+            }else {
+                alert('未知错误！');
             }
-            
-            $('#submitButton').html('提交订单');
-            $('#submitButton').prop('disabled', false);
-
         }, function() {
             alert('网络异常');
+        }).always(function() {
+            $('#submitButton').val('提交订单');
+            $('#submitButton').prop('disabled', false);
         });
     });
 });
