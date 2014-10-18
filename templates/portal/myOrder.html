@@ -2,7 +2,7 @@
 
 {% block css %}
 {{ block.super }}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/store.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/myorder.css">
 {% endblock %}
 
 {% block body %}
@@ -10,23 +10,30 @@
 	<div>
 		<h4><b>我的商品订单</b></h4>
 		{% for order in orders %}
+		{% if forloop.last %}
+		<div class="order-item-div order-item-div-last">
+		{% else %}
 		<div class="order-item-div">
+		{% endif %}
 			<input name="orderid" value="{{ order.orderid }}" style="display:none">
-			<span class="tips">
-				商品订单号: {{ order.orderid }}
-				<span class="status-field">
-					{{ order.statusString }}
-				</span>
-			</span>
-			<span>商品总价: {{ order.total_price|floatformat:2 }} 元  {{ order.total_points }} 积分</span>
+			<div class="tips">
+				商品订单号: {{ order.orderid }} 
+                {% if order.status == 3 %}
+                <span class="status-field label label-success label-sm">{{ order.statusString }}</span>
+                {% elif order.status == 0 %} 
+                <span class="status-field label label-default label-sm">{{ order.statusString }}</span>
+                {% else %}
+                <span class="status-field label label-default label-sm">{{ order.statusString }}</span>
+                {% endif %}
+			</div>
+			<div>商品总价: {{ order.total_price|floatformat:2 }} 元  {{ order.total_points }} 积分</div>
 			
-			<span>地址: {{ order.destination }}</span>
-			<span class="tips-small">{{ order.time|date:"Y-m-t H:i:s" }}</span>				      	
+			<div>地址: {{ order.destination }}</div>
+			<div class="tips-small">{{ order.time|date:"Y-m-t H:i:s" }}</div>				      	
 		</div>
 		{% empty %}
 		<span>您暂时还没有任何订单</span>
 		{% endfor %}
-		<hr>
 		<p class="warning">*注 本页最多显示您最近的七条商品订单记录</p>  
 	</div> 
 	   
