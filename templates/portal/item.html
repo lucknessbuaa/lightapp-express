@@ -7,6 +7,7 @@
 
 {% block body %}
 {% include "portal/menu.html" %}
+<div class="mask"></div>
 <div class=" goods-wrap">
 	<img src="{{ good.imgurl }}" class="product-image">
 	<div class="main-item">
@@ -49,7 +50,7 @@
     <hr>
 	<div class="footer"><a href="/app/store">返回积分商城首页</a></div>
 </div>
-<div id="order-modal" class="modal fade" aria-hidden="false">
+<div id="order-modal" style="display:none;position:absolute;left:0;top:60px">
 	<div class="modal-dialog">
        	<div class="modal-content">
        		<form id="order-info-form" class="modal-body">
@@ -72,8 +73,8 @@
 				<div class="form-group">
 					<input type="text" name="notes" placeholder="备注信息" class="form-control">
 				</div>
-				<div style="position:relative;left:19%">
-					<button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right:15px">取 消</button>
+				<div style="width:60%;margin:0 auto;">
+					<button id="cancel-submit" type="button" class="btn btn-default" data-dismiss="modal" style="margin-right:15px">取 消</button>
 					<button id="submit-btn" type="button" class="btn btn-success">提交订单</button>
 				</div>
 			</form>

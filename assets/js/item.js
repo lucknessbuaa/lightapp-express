@@ -4,8 +4,10 @@ $(function(){
 	$('#buy-btn').click(function(e){
 		$('#order-modal-num').html(num);
 		$('#order-modal-points').html(num*points);
-		$('#order-modal').modal({backdrop:true,keyboard:true,show:true});
+		$('body').prepend($("<div class='mask' style='background-color:rgba(0,0,0,0.5);height:"+$(document).height()+"px;width:100%;position:absolute;left:0;top:0'></div>"));
+		$('#order-modal').show();
 	});
+	$('#cancel-submit').click(function(){$('#order-modal').hide();$('.mask').remove();});
 	$('#submit-btn').bind("click",function(e){
 		var that = this;
 		if($("#name").val()=="" || $("#phone").val()=="" || $("#destination").val()==""){
