@@ -1,6 +1,9 @@
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+if os.environ.get('mode') == 'local':
+    BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs')
+else:
+    BASE_DIR = '/home/bae/log'
 
 LOGGING = {
     'version': 1,
@@ -29,7 +32,7 @@ LOGGING = {
             'when': 'D',
             'interval': 1,
             'backupCount': 5,
-            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+            'filename': os.path.join(BASE_DIR, 'django.log'),
             'formatter': 'normal'
         },
         'app': {
@@ -38,7 +41,7 @@ LOGGING = {
             'when': 'D',
             'interval': 1,
             'backupCount': 5,
-            'filename': os.path.join(BASE_DIR, 'logs/app.log'),
+            'filename': os.path.join(BASE_DIR, 'app.log'),
             'formatter': 'normal'
         }
     },

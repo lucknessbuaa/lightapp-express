@@ -42,7 +42,7 @@ class BaiduAuth(BaseOAuth2):
             logger.debug(data)
             return data
         except (ValueError, KeyError, IOError):
-            logger.exception()
+            logger.exception('hydra!')
             return None
 
 
