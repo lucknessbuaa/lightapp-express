@@ -19,3 +19,7 @@ hr {
     color: red;
     font-size: 13px;
 }
+
+.deletePackage:hover {
+    cursor: pointer;
+}
