@@ -20,5 +20,3 @@ trunkate
 
 Mysql-python
 django-mysqlpool
-
-uwsgi
