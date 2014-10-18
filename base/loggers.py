@@ -1,12 +1,9 @@
 import os
 
-'''
-if os.environ.get('MODE') == 'BAE':
-    BASE_DIR = '/home/bae/log'
-else:
+if os.environ.get('mode') == 'local':
     BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs')
-'''
-BASE_DIR = '/home/bae/log'
+else:
+    BASE_DIR = '/home/bae/log'
 
 LOGGING = {
     'version': 1,

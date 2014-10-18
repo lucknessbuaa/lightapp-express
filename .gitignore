@@ -93,4 +93,3 @@ db.sqlite3
 nohup.out
 .baeapp
 *.swp
-static
