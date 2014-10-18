@@ -1,6 +1,6 @@
 import os
 
-if os.environ['MODE'] == 'BAE':
+if os.environ.get('MODE') == 'BAE':
     BASE_DIR = '/home/bae/log'
 else:
     BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs')
