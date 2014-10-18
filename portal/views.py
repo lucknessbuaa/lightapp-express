@@ -153,6 +153,7 @@ def store(request):
 
     return render(request, "portal/store.html", {'goods':goods})
 
+
 @login_required
 def storeItem(request):
     goodsid = int(request.GET.get('goodsid'))
