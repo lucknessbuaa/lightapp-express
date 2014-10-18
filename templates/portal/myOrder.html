@@ -8,7 +8,7 @@
 {% block body %}
 <div class="well">
 	<div>
-		<h4>我的商品订单</h4>
+		<h4><b>我的商品订单</b></h4>
 		{% for order in orders %}
 		<div class="order-item-div">
 			<input name="orderid" value="{{ order.orderid }}" style="display:none">
@@ -21,7 +21,7 @@
 			<span>商品总价: {{ order.total_price|floatformat:2 }} 元  {{ order.total_points }} 积分</span>
 			
 			<span>地址: {{ order.destination }}</span>
-			<span class="tips-small">{{ order.createtime|date:"Y-m-t H:i:s" }}</span>				      	
+			<span class="tips-small">{{ order.time|date:"Y-m-t H:i:s" }}</span>				      	
 		</div>
 		{% empty %}
 		<span>您暂时还没有任何订单</span>
