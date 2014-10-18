@@ -5,3 +5,7 @@
 .gray {
     color: gray;
 }
+
+.form-group{
+    clear: both;
+}
