@@ -19,8 +19,10 @@
 		<li>
 			<a href="store/item?goodsid={{ good.goodsid }}"><img class="scrollLoad" src="{{ good.thumburl }}" data-url="{{ good.thumburl }}"></a>
 			<h4><a href="store/item?goodsid={{ good.goodsid }}">{{ good.name }}</a></h4>
-			<p><a href="store/item?goodsid={{ good.goodsid }}">{{ good.description }}</a></p>
-			<div class="price"><span style="color:#222">{{ good.points }}积分<span class="slash">/</span>份</span></div>
+			<div class="desc">
+				<p><a href="store/item?goodsid={{ good.goodsid }}">{{ good.description }}</a></p>
+				<div class="price"><span style="color:#222">{{ good.points }}积分<span class="slash">/</span>份</span></div>
+			</div>
 		</li>
 		{% empty %}
 		{% endfor %}

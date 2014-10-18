@@ -47,7 +47,7 @@
 	</div>
 	
     <hr>
-	<div class="footer"><a href="/tmall?authcode=test">返回积分商城首页</a></div>
+	<div class="footer"><a href="/app/store">返回积分商城首页</a></div>
 </div>
 <div id="order-modal" class="modal fade" aria-hidden="false">
 	<div class="modal-dialog">
@@ -56,17 +56,17 @@
 	        	<p><b>订单内容:</b></p>
 	        	{{ good.name }} x <span id="order-modal-num">1</span>份, 共需<span id="order-modal-points">{{ good.points }}</span>积分
 	       		<hr>
-	       		<input type="hidden" name="goodsid" value="9">
+	       		<input type="hidden" name="goodsid" value="{{ good.goodsid }}">
 				
 				<div class="form-group">
-					<input type="text" id="name" name="name" maxlength="12" placeholder="收货人姓名" value="测试" style="width:35%;margin-right:5%;" class="form-control pull-left">
-					<input type="tel" id="phone" name="phone" maxlength="11" placeholder="手机号码" value="13333333333" style="width:60%" class="form-control">
+					<input type="text" id="name" name="name" maxlength="12" placeholder="收货人姓名" style="width:35%;margin-right:5%;" class="form-control pull-left">
+					<input type="tel" id="phone" name="phone" maxlength="11" placeholder="手机号码" style="width:60%" class="form-control">
 				</div>
 				
 				<div class="form-group">
 					<div class="input-group">
 				       	<div class="input-group-addon" style="height:100%"><span class="glyphicon glyphicon-map-marker"></span></div>
-						<input type="text" id="destination" name="destination" placeholder="送货地址" value="测试地址" class="form-control">
+						<input type="text" id="destination" name="destination" placeholder="送货地址" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
