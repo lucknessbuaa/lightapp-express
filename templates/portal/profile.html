@@ -15,9 +15,9 @@
         <span class="username"><b>用户名:</b> {{ request.user }}</span>
         {% endif %}
         &nbsp;
-        <span class="label label-success">余额: ￥0.0</span>
+        <span class="label label-success">余额: ￥{{ profile.balance|default:'0.0' }}</span>
         &nbsp;
-        <span class="label label-primary">积分: 0</span>
+        <span class="label label-primary">积分: {{ profile.points|default:'0' }}</span>
     </div>
 
     <div class="order">

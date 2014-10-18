@@ -3,8 +3,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = 'zuvp4036q9zpc!)0sac=qhk!%udh^5dcavrr@lc6c)m41f3nz%'
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+DEBUG = False
+TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 LOGIN_URL= "/app/login"
@@ -23,11 +23,14 @@ INSTALLED_APPS = (
     'social_auth'
 )
 
-BAIDU_CLIENT_KEY = 'NI3lwuv8vVGBGGC0mzmAmIL3'
-BAIDU_CLIENT_SECRET = 'oY1y5mIrvNVMsG4XQGR2lvByINGzLCkg'
+BAIDU_CLIENT_KEY = 'hqle5S6E74nhq9GVXDiKHG6s'
+BAIDU_CLIENT_SECRET = '2G41iSWt01sZpKjHcQwSwdC0bYnbnYAC'
+BAIDU_AUTH_EXTRA_ARGUMENTS = {
+    'display': 'mobile'
+}
 
-WEIBO_CLIENT_KEY = '3131404119'
-WEIBO_CLIENT_SECRET = '93d4c32f83e73f7d352e858001ce9198'
+WEIBO_CLIENT_KEY = '3384169425'
+WEIBO_CLIENT_SECRET = '31f0b9ff71cff9a4e7d70f0784d5a0f5'
 
 QQ_CLIENT_KEY = '101159743'
 QQ_CLIENT_SECRET = 'f7297c665355649d36ec6c518f2659f1'
@@ -36,6 +39,7 @@ SOCIAL_AUTH_UID_LENGTH = 128
 SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 128
 SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 128
 SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 128
+LOGIN_ERROR_URL = '/app/login'
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/app/'
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/app/'
@@ -65,12 +69,25 @@ WSGI_APPLICATION = 'base.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db.sqlite3'
     }
 } 
+'''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_mysqlpool.backends.mysqlpool',
+        'NAME': 'express',
+        'USER': 'root',
+        'PASSWORD': 'nameLR9969',
+        'HOST': 'localhost',
+        'PORT': '3306'
+    }
+}
 
 CACHES = {
     'default': {
