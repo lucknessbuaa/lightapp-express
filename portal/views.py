@@ -131,9 +131,6 @@ def store(request):
 
 @login_required
 def storeItem(request):
-    if not isRegistered(request.user):
-        return redirect('/app/profile')
-
     goodsid = int(request.GET.get('goodsid'))
     params = {'goodsid':goodsid}
     resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsById', params = params)
@@ -172,8 +169,8 @@ def getOrder(request):
     })
     result = resp.json()
     
-    # for item in result:
-    #     item['time'] = datetime.datetime.strptime(item['createtime'],'%M %j, %Y')
+    for item in result:
+        item['time'] = datetime.datetime.strptime(item['createtime'],'%M %j, %Y')
     return render(request, "portal/myOrder.html", {'orders':result})
 
 
