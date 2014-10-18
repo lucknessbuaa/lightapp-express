@@ -131,9 +131,6 @@ def store(request):
 
 @login_required
 def storeItem(request):
-    if not isRegistered(request.user):
-        return redirect('/app/profile')
-
     goodsid = int(request.GET.get('goodsid'))
     params = {'goodsid':goodsid}
     resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsById', params = params)
