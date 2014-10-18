@@ -81,6 +81,15 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django_mysqlpool.backends.mysqlpool',
+        'NAME': 'kWjANFmEFkQdhjctPPIJ',
+        'USER': 'xBExZl897GD0mbhICvtT1irv',
+        'PASSWORD': '4pNDCphcAYRe4YARIkTO0eokP9pI5hZM',
+        'HOST': 'sqld.duapp.com',
+        'PORT': '4050'
+    },
+
+    'local': {
+        'ENGINE': 'django_mysqlpool.backends.mysqlpool',
         'NAME': 'express',
         'USER': 'root',
         'PASSWORD': 'nameLR9969',
