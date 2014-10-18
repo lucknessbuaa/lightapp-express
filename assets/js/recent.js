@@ -15,11 +15,16 @@ $(function() {
                 alert('错误，用户不存在或者authcode对应的用户与订单id对应的用户不一致');
             }else if(data.retValue.code === 710) {
                 alert('该订单已被处理，无法删除');
+            }else {
+                alert('未知错误！');
             }
 
             window.location.reload();
         }, function() {
             alert('网络异常');
+        }).always(function() {
+            $(this).html('删除');
+            $(this).prop('disabled', false);
         }); 
     });
 });
