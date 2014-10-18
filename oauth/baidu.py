@@ -1,8 +1,12 @@
 import logging
 import json 
 from urllib import urlencode
+from urllib2 import Request, HTTPError
 
+from social_auth.utils import dsa_urlopen
+from social_auth.exceptions import AuthCanceled
 from social_auth.backends import BaseOAuth2, OAuthBackend
+from social_auth.exceptions import SocialAuthBaseException
 import requests
 
 
@@ -16,9 +20,13 @@ class BaiduBackend(OAuthBackend):
     ]
 
     def get_user_id(self, details, response):
-        return response['userid']
+        try:
+            return response['userid']
+        except:
+            raise SocialAuthBaseException('fail to get userid')
 
     def get_user_details(self, response):
+        logger.debug(str(response))
         return {
             'username': response.get('username', ''),
             'first_name': response.get('realname', '')
@@ -33,6 +41,31 @@ class BaiduAuth(BaseOAuth2):
     SETTINGS_SECRET_NAME = 'BAIDU_CLIENT_SECRET'
     REDIRECT_STATE = False
 
+    def auth_complete(self, *args, **kwargs):
+        """Completes loging process, must return user instance"""
+        self.process_error(self.data)
+        params = self.auth_complete_params(self.validate_state())
+        request = Request(self.ACCESS_TOKEN_URL, data=urlencode(params),
+                          headers=self.auth_headers())
+
+        try:
+            result = dsa_urlopen(request).read()
+            logger.debug('result: %s', result)
+            response = json.loads(result)
+        except HTTPError, e:
+            logger.debug('code: %d, reason: %s', e.code, e.reason)
+            logger.debug('error result: %s', e.read())
+            if e.code == 400:
+                raise AuthCanceled(self)
+            else:
+                raise
+        except (ValueError, KeyError):
+            raise AuthUnknownError(self)
+
+        self.process_error(response)
+        return self.do_auth(response['access_token'], response=response,
+                            *args, **kwargs)
+
     def user_data(self, access_token, *args, **kwargs):
         url = 'https://openapi.baidu.com/rest/2.0/passport/users/getInfo'
         try:
@@ -41,9 +74,9 @@ class BaiduAuth(BaseOAuth2):
             }).json()
             logger.debug(data)
             return data
-        except (ValueError, KeyError, IOError):
+        except: 
             logger.exception('hydra!')
-            return None
+            return {}
 
 
 BACKENDS = {

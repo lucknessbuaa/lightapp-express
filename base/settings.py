@@ -8,6 +8,7 @@ TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
 
 LOGIN_URL= "/app/login"
+LOGIN_ERROR_URL= "/app/login"
 
 # Application definition
 
@@ -52,6 +53,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'base.SocialAuthExceptionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
