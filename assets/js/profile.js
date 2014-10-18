@@ -8,7 +8,7 @@ $(function() {
             schoolid: this.schoolid.value,
             campusid: this.campusid.value,
             name: this.name.value,
-            gender: this.gender.value,
+            gender: $('input[name="gender"]:checked').val(),
             susheid: this.address.value,
             phone: this.phone.value
         }, 'json').then(function(data) {
