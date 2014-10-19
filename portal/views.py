@@ -294,6 +294,9 @@ def points(request):
     return render(request, 'portal/points.html')
 
 
-def error(request):
-    return render(request, 'portal/error.html')
+def error500(request):
+    return render(request, 'portal/error.html', status=500)
 
+
+def error(request):
+    raise
