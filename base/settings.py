@@ -81,7 +81,7 @@ DATABASES = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_mysqlpool.backends.mysqlpool',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'kWjANFmEFkQdhjctPPIJ',
         'USER': 'xBExZl897GD0mbhICvtT1irv',
         'PASSWORD': '4pNDCphcAYRe4YARIkTO0eokP9pI5hZM',
@@ -90,7 +90,7 @@ DATABASES = {
     },
 
     'local': {
-        'ENGINE': 'django_mysqlpool.backends.mysqlpool',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'express',
         'USER': 'root',
         'PASSWORD': 'nameLR9969',

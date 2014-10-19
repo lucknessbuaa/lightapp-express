@@ -9,7 +9,7 @@ start-uwsgi:
           --chdir $(shell pwd) \
           --wsgi-file base/wsgi.py \
           --master \
-          --process 4 \
+          --process 2 \
           --daemonize $(shell pwd)/logs/uwsgi.log \
           --pidfile $(shell pwd)/uwsgi.pid  
  

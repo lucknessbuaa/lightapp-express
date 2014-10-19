@@ -305,3 +305,12 @@ def error(request):
 def price(request):
     return render(request, 'portal/price.html')
 
+
+'''
+def test(request):
+    from django.contrib.auth.models import User
+    usernames = map(lambda i: i.username, User.objects.all())
+    return render_json({
+        'usernames': usernames
+    })
+'''
