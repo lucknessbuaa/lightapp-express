@@ -13,3 +13,8 @@ urlpatterns = patterns('',
     url(r'^oauth/', include('social_auth.urls')),
     url(r'^app/', include('portal.urls'))
 )
+
+handler404 = 'portal.views.error'
+handler403 = 'portal.views.error'
+handler400 = 'portal.views.error'
+handler500 = 'portal.views.error'

@@ -293,3 +293,7 @@ def deleteRecent(request):
 def points(request):
     return render(request, 'portal/points.html')
 
+
+def error(request):
+    return render(request, 'portal/error.html')
+
