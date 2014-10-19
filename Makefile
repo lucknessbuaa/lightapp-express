@@ -1,9 +1,8 @@
-host:=0.0.0.0
-port:=9000
+port:=9788
 activate_venv=source venv/bin/activate
  
 debug:
-	./manage.py runserver $(host):$(port)
+	export mode=local && ./manage.py runserver $(port) --settings=base.settings_local
  
 start-uwsgi:
 	uwsgi --socket 127.0.0.1:$(port) \
