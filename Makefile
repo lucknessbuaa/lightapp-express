@@ -20,7 +20,7 @@ reload-uwsgi:
 	uwsgi --reload uwsgi.pid
  
 collectstatic:
-	./manage.py collectstatic --noinput
+	export mode='local' && ./manage.py collectstatic --noinput
  
 venv:
 	virtualenv venv --python=python2.7

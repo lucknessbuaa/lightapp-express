@@ -16,5 +16,6 @@ urlpatterns = patterns('portal.views',
     url(r'^store/myOrder$','getOrder'),
     url(r'^profile$', 'profile'),
     url(r'^error$', 'error'),
+    url(r'^price$', 'price'),
     url(r'^rule$', 'rule')
 )

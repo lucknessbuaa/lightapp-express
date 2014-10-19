@@ -300,3 +300,8 @@ def error500(request):
 
 def error(request):
     raise
+
+
+def price(request):
+    return render(request, 'portal/price.html')
+

@@ -1,0 +1,123 @@
+{% extends "base.html" %} 
+
+{% block body %} 
+{% include 'portal/menu.html' %}
+<div class='container'>
+    <div style="padding-top: 10px;">
+        <span style="color:red">注：代寄服务不收取额外服务费，以下价格只是快递公司的收费标准。</span>
+        <br>ps: 仅<b>顺丰到付</b>需额外收取2-5元
+    </div>
+    <h3>百世汇通</h3>
+
+    <table class='table table-bordered'>
+        <tbody>
+            <tr>
+                <td valign="top" width="263">目的地</td>
+                <td valign="top" width="136">首重（<span style="font-family: Tahoma;">1KG</span><span style="font-family: 宋体;">）</span>
+                </td>
+                <td valign="top" width="167">续重（每<span style="font-family: Tahoma;">1KG</span><span style="font-family: 宋体;">）</span>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" width="263">一：江浙沪皖</td>
+                <td valign="top" width="136">7</td>
+                <td valign="top" width="167">2</td>
+            </tr>
+            <tr>
+                <td valign="top" width="263">二：北京、天津、福建、山东、广东、江西、河南、河北、湖南、湖北</td>
+                <td valign="top" width="136">10</td>
+                <td valign="top" width="167">7</td>
+            </tr>
+            <tr>
+                <td valign="top" width="263">三：海南、陕西、山西、云南、广西、四川、重庆、贵州、辽宁、吉林、黑龙江</td>
+                <td valign="top" width="136">12</td>
+                <td valign="top" width="167">10</td>
+            </tr>
+            <tr>
+                <td valign="top" width="263">四：甘肃、青海、宁夏、内蒙古</td>
+                <td valign="top" width="136">15</td>
+                <td valign="top" width="167">12</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--
+        <h2>圆通快递</h2>
+        <table>
+            <tbody>
+                <tr><td valign="top" width="263">目的地</td><td valign="top" width="136">首重（<span style="font-family: Tahoma;">1KG</span><span style="font-family: 宋体;">）</span></td><td valign="top" width="167">续重（每<span style="font-family: Tahoma;">1KG</span><span style="font-family: 宋体;">）</span></td></tr>
+                <tr><td valign="top" width="263">一：江浙沪皖</td><td valign="top" width="136">8</td><td valign="top" width="167">2</td></tr>
+                <tr><td valign="top" width="263">二：北京、天津、广东、山东、福建、河北、河南、湖北、湖南、江西、</td><td valign="top" width="136">12</td><td valign="top" width="167">8</td></tr>
+                <tr><td valign="top" width="263">三：广西、重庆、四川、云南、海南、贵州、山西、陕西</td><td valign="top" width="136">15</td><td valign="top" width="167">13</td></tr>
+                <tr><td valign="top" width="263">四：甘肃、青海、内蒙古、黑龙江、辽宁、宁夏、吉林</td><td valign="top" width="136">18</td><td valign="top" width="167">16</td></tr>
+                <tr><td valign="top" width="263">五：西藏、新疆</td><td valign="top" width="136">22</td><td valign="top" width="167">20</td></tr>
+            </tbody>
+        </table>
+        -->
+
+    <br>
+
+    <h3>顺丰快递</h3>
+    <p>一、标准顺丰速度&nbsp;（航空件）</p>
+    <table class='table table-bordered'>
+        <tbody>
+            <tr>
+                <td valign="top" width="189">目的地城市</td>
+                <td valign="top" width="189">首重</td>
+                <td valign="top" width="189">续重</td>
+            </tr>
+            <tr>
+                <td valign="top" width="189">江浙沪</td>
+                <td valign="top" width="189">12</td>
+                <td valign="top" width="189">2</td>
+            </tr>
+            <tr>
+                <td valign="top" width="189">安徽</td>
+                <td valign="top" width="189">14</td>
+                <td valign="top" width="189">2</td>
+            </tr>
+            <tr>
+                <td valign="top" width="189">湖北、河南、江西</td>
+                <td valign="top" width="189">22</td>
+                <td valign="top" width="189">8</td>
+            </tr>
+            <tr>
+                <td valign="top" width="189">京津冀、辽宁、湖南、四川、重庆、贵州、陕西、云南、甘肃、西宁、山西、山东、福建</td>
+                <td valign="top" width="189">22</td>
+                <td valign="top" width="189">10</td>
+            </tr>
+            <tr>
+                <td valign="top" width="189">内蒙古</td>
+                <td valign="top" width="189">22</td>
+                <td valign="top" width="189">12</td>
+            </tr>
+            <tr>
+                <td valign="top" width="189">广东、广西、海宁</td>
+                <td valign="top" width="189">22</td>
+                <td valign="top" width="189">13</td>
+            </tr>
+            <tr>
+                <td valign="top" width="189">黑龙江、吉林、宁夏</td>
+                <td valign="top" width="189">22</td>
+                <td valign="top" width="189">18</td>
+            </tr>
+            <tr>
+                <td valign="top" width="189">新疆、西藏</td>
+                <td valign="top" width="189">24</td>
+                <td valign="top" width="189">20</td>
+            </tr>
+            <tr>
+                <td valign="top" width="189">港澳</td>
+                <td valign="top" width="189">30</td>
+                <td valign="top" width="189">12</td>
+            </tr>
+            <tr>
+                <td valign="top" width="189">台湾</td>
+                <td valign="top" width="189">35</td>
+                <td valign="top" width="189">26</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% include "portal/navigation.html" %} 
+{% endblock %}
