@@ -1,0 +1,25 @@
+{
+  "name": "lightapp-express",
+  "version": "0.0.0",
+  "description": "lightapp-express ================",
+  "main": "Gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jarvys/lightapp-express.git"
+  },
+  "author": "Jarvys <yuhan534@126.com> (https://jarvys.github.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jarvys/lightapp-express/issues"
+  },
+  "homepage": "https://github.com/jarvys/lightapp-express",
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-changed": "^1.0.0",
+    "gulp-if": "^1.2.5",
+    "gulp-tinypng": "git://github.com/jarvys/gulp-tinypng"
+  }
+}

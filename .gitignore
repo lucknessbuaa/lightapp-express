@@ -95,3 +95,4 @@ nohup.out
 *.swp
 components
 static
+.gulp
