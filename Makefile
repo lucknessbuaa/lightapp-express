@@ -5,7 +5,7 @@ debug:
 	export mode=local && ./manage.py runserver $(port) --settings=base.settings_local
  
 start-uwsgi:
-	uwsgi --socket 127.0.0.1:$(port) \
+	export mode=local && uwsgi --socket 127.0.0.1:$(port) \
           --chdir $(shell pwd) \
           --wsgi-file base/wsgi.py \
           --master \
