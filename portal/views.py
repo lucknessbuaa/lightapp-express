@@ -88,6 +88,7 @@ def isRegistered(user):
 
 
 def index(request):
+    logger.debug('welcome to nankuaidi')
     return render(request, "portal/index.html")
 
 
