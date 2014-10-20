@@ -16,6 +16,9 @@ $(function() {
                 return alert('操作失败');
             }
 
+            if (data.points_got) {
+                alert('恭喜您获得了200积分！');
+            }
             window.location.reload();
         }, function() {
             alert('网络异常');

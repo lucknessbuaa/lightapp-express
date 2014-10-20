@@ -212,6 +212,7 @@ def profile(request):
             'profile': profile
         })
 
+    pointsGot = False
     if not isRegistered(request.user):
         account = registerAccount(request.user)
         if not account:
@@ -219,12 +220,16 @@ def profile(request):
             return render_json({'ret_code': 1001})
             
         addPoints(account.openid)
+        pointsGot = True
 
     try:
         params = {}
         params.update(request.POST)
         updateAccount(request.user, params)
-        return render_json({'ret_code': 0})
+        return render_json({
+            'ret_code': 0,
+            'points_got': pointsGot
+        })
     except:
         logger.exception('fail to update account')
         return render_json({'ret_code': 1001})
