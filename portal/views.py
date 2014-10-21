@@ -174,8 +174,9 @@ def addSendOrder(request):
 def store(request):
 
     params = {'limit':30}
-    resp = requests.get('http://mcsd.sinaapp.com/api/getGoods', params = params)
+    resp = requests.get('http://mcsd.sinaapp.com/api/getGoods', params=params)
     goods = resp.json()
+    goods = filter(lambda good: good['goodsid'] != 2, goods)
 
     return render(request, "portal/store.html", {'goods':goods})
 
@@ -183,7 +184,7 @@ def store(request):
 def storeItem(request):
     goodsid = int(request.GET.get('goodsid'))
     params = {'goodsid':goodsid}
-    resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsById', params = params)
+    resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsById', params=params)
     good = resp.json()
     good['remain'] = good['num'] - good['consumption']
     good['ratingRange'] = range(good['rating'])
