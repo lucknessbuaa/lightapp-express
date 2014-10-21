@@ -1,9 +1,11 @@
 $(function() {
     var $form = $('form');
+    var $submit = $form.find('input[type=submit]');
     var form = $form[0];
     $form.submit(function(e) {
         e.preventDefault();
 
+        $submit.button('loading');
         $.post('/app/profile', {
             schoolid: this.schoolid.value,
             campusid: this.campusid.value,
@@ -22,6 +24,8 @@ $(function() {
             window.location.reload();
         }, function() {
             alert('网络异常');
+        }).always(function() {
+            $submit.button('reset');
         });
     });
 });

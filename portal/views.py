@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-  
 import logging
+import json
 import datetime
 import uuid
 import requests
 
 from django import forms
+from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -48,8 +50,11 @@ def updateAccount(user, params):
     resp = requests.post('http://mcsd.sinaapp.com/profile/save', params=params)
     result = resp.json()
     logger.debug('result: %s', str(result))
+
     if result['code'] != 200:
         raise Exception('api error')
+
+    cache.delete(user_cache_key(user))
 
 
 def registerAccount(user):
@@ -75,12 +80,26 @@ def registerAccount(user):
     return account
 
 
+def user_cache_key(user):
+    return 'user#' + str(user.pk)
+
+
 def getProfile(user):
+    info = cache.get(user_cache_key(user))
+    if info:
+        logger.debug('profile cache hit!')
+        return json.loads(info)
+
+
+    logger.debug('profile cache not hit!')
     account = Account.objects.get(user=user)
     resp = requests.get('http://mcsd.sinaapp.com/api/getUserInfo', params={
         'authcode': account.openid
     })
-    return resp.json()
+
+    result = resp.json()
+    cache.set(user_cache_key(user), json.dumps(result))
+    return result
 
 
 def isRegistered(user):
@@ -103,8 +122,14 @@ def logout(request):
 
 @login_required
 def sign(request):
+    try:
+        profile = getProfile(request.user)
+    except:
+        profile = {}
 
-    return render(request, "portal/sign.html")
+    return render(request, "portal/sign.html", {
+        'profile': profile
+    })
 
 
 @login_required
