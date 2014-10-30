@@ -6,7 +6,6 @@ import uuid
 import requests
 
 from django import forms
-from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -27,79 +26,27 @@ def md5(s):
     return m.hexdigest()
 
 
-def addPoints(openid):
-    resp = requests.post('http://mcsd.sinaapp.com/api/sendPoints', params={
-        'authcode': openid,
-        'points': 200,
-        'notes': u'直达号注册奖励',
-        'token': md5(openid+API_TOKEN)
-    })
-
-    try:
-        result = resp.json()
-        if result['code'] != 200:
-            logger.warn('fail to add points, result: %s', str(result))
-    except:
-        logger.exception('fail to add points')
+def addPoints(account):
+    account.points = accout.points + 200
+    account.save()
 
 
 def updateAccount(user, params):
     account = Account.objects.get(user=user)
-
-    params['authcode'] = account.openid
-    resp = requests.post('http://mcsd.sinaapp.com/profile/save', params=params)
-    result = resp.json()
-    logger.debug('result: %s', str(result))
-
-    if result['code'] != 200:
-        raise Exception('api error')
-
-    cache.delete(user_cache_key(user))
-
+    account.name = params.get('name')
+    account.phone = params.get('phone')
+    account.address = params.get('address')
+    account.gender = params.get('gender')
+    account.save()
 
 def registerAccount(user):
-    openid = str(uuid.uuid4())
-
-    params = {
-        'openid': openid,
-        'tpid': 2,
-        'schoolid': 1,
-        'campusid': 1,
-        'source': 'baidu_zhidahao',
-        'token': API_TOKEN
-    }
-    params['openid'] = openid
-    resp = requests.post('http://mcsd.sinaapp.com/api/addUser', params=params)
-    result = resp.json()
-    logger.debug('registerAccount result: %s', str(result))
-    if result['code'] != 200:
-        return None
-
-    account = Account(user=user, openid=openid)
+    account = Account(user=user)
     account.save()
     return account
 
 
-def user_cache_key(user):
-    return 'user#' + str(user.pk)
-
-
 def getProfile(user):
-    info = cache.get(user_cache_key(user))
-    if info:
-        logger.debug('profile cache hit!')
-        return json.loads(info)
-
-
-    logger.debug('profile cache not hit!')
-    account = Account.objects.get(user=user)
-    resp = requests.get('http://mcsd.sinaapp.com/api/getUserInfo', params={
-        'authcode': account.openid
-    })
-
-    result = resp.json()
-    cache.set(user_cache_key(user), json.dumps(result))
-    return result
+    return forms.model_to_dict(Account.objects.get(user=user))
 
 
 def isRegistered(user):
@@ -245,13 +192,11 @@ def profile(request):
             logger.warn('user is not register!')
             return render_json({'ret_code': 1001})
             
-        addPoints(account.openid)
+        addPoints(account)
         pointsGot = True
 
     try:
-        params = {}
-        params.update(request.POST)
-        updateAccount(request.user, params)
+        updateAccount(request.user, request.POST)
         return render_json({
             'ret_code': 0,
             'points_got': pointsGot

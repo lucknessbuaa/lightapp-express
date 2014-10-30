@@ -28,7 +28,7 @@ $(function() {
             campusid: this.campusid.value,
             name: this.name.value,
             gender: $('input[name="gender"]:checked').val(),
-            susheid: this.address.value,
+            address: this.address.value,
             phone: this.phone.value
         }, 'json').then(function(data) {
             if (data.ret_code === 1001) {
