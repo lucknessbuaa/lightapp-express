@@ -17,6 +17,5 @@ urlpatterns = patterns('portal.views',
     url(r'^profile$', 'profile'),
     url(r'^error$', 'error'),
     url(r'^price$', 'price'),
-    #url(r'^test$', 'test'),
     url(r'^rule$', 'rule')
 )

@@ -21,6 +21,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'base',
     'portal',
+    'backend',
     'social_auth'
 )
 
