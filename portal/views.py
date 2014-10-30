@@ -13,7 +13,7 @@ from django.contrib.auth import logout as auth_logout
 from django_render_json import render_json
 import django_auth_json
 
-from backend.models import Account
+from backend.models import Account, SendOrder, SignOrder
 
 logger = logging.getLogger(__name__)
 API_TOKEN = 'jinjidexiaoyuan'
@@ -100,22 +100,41 @@ def addSendOrder(request):
 
     account = Account.objects.get(user=request.user)
 
+    params = request.POST
+    time = datetime.datetime.today() + datetime.timedelta(days=int(params.get('fetchdate')))
+    SendOrder(account=account, time=time, period=params.get('fetchperiod'),
+            note=params.get('notes'), express=params.get('company')).save()
+    return render_json({'ret_code': 0})
+
+
+class SignOrderForm(forms.ModelForm):
+    class Meta:
+        model = SignOrder
+
+
+@csrf_exempt
+def addSignOrder(request):
+    if not isRegistered(request.user):
+        return render_json({
+            'ret_code': 1002,
+            'msg': 'error!'
+        })
+
+    account = Account.objects.get(user=request.user)
+
     params = {}
     params.update(request.POST)
-    params.update({
-        'authcode': account.openid
-    })
-    logger.debug('add send order, params: \n%s', str(params))
+    params['account'] = account.pk
+    params['express'] = int(params['express'][0])
+    logger.debug('params: %s', params)
 
-    resp = requests.post('http://mcsd.sinaapp.com/order/save', params=params)
-    result = resp.json()
-    if result['code'] == 200:
-        return render_json({'ret_code': 0})
-    else:
-        return render_json({
-            'ret_code': 1001,
-            'msg': result['msg']
-        })
+    form = SignOrderForm(params)
+    if not form.is_valid():
+        logger.warn("form is invalid: %s", form.errors)
+        return render_json({'ret_code': 1001, 'msg': '参数不正确'})
+
+    form.save()
+    return render_json({'ret_code': 0})
 
 
 def store(request):

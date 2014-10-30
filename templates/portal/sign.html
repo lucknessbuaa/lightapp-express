@@ -10,7 +10,7 @@
 <div class="well">
 	<form role="form" id="signup" class="form-horizontal" method="post" action="#" onsubmit="return false;">
 		<div class="form-group">
-		    <select class="form-control input-sm" name="company" id="company">
+		    <select class="form-control input-sm" name="express" id="company">
 	            <option value="0">请选择快递公司</option>
             	<option value="1">圆通</option>
             	<option value="2">中通</option>
@@ -47,7 +47,7 @@
 		<div class="form-group">
 			<div class="input-group input-group-sm">
 	        	<div class="input-group-addon"style="height: 100%;"><span class="glyphicon glyphicon-map-marker"></span></div>
-                <input type="text" style="width:120px" id="destination" name="destination" 
+                <input type="text" style="width:120px" id="destination" name="address" 
                     placeholder="收货地址（宿舍）" class="form-control" value="{{ profile.susheid }}">
 				<a href="#" class="feeRule-link">收费规则</a>
 			</div>
@@ -61,7 +61,7 @@
 
 		<div class="form-group">
 	        <span>备注信息:</span><br> <span class="tips"> 可复制快递公司短信或备注个人要求</span><br>
-		    <textarea class="form-control" rows="4" name="notes"></textarea>
+		    <textarea class="form-control" rows="4" name="note"></textarea>
 		</div>
 
 		<p class="warning">请在下午五点前下单。由于人手原因, 校门口快递最近暂时不代领 &gt;_&lt;</p>
