@@ -14,7 +14,7 @@ from django.contrib.auth import logout as auth_logout
 from django_render_json import render_json
 import django_auth_json
 
-from .models import Account
+from backend.models import Account
 
 logger = logging.getLogger(__name__)
 API_TOKEN = 'jinjidexiaoyuan'
