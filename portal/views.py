@@ -102,7 +102,9 @@ def addSendOrder(request):
 
     params = request.POST
     time = datetime.datetime.today() + datetime.timedelta(days=int(params.get('fetchdate')))
-    SendOrder(account=account, time=time, period=params.get('fetchperiod'),
+    SendOrder(account=account, time=time, 
+            name=account.name, address=account.address, phone=account.phone,
+            period=params.get('fetchperiod'),
             note=params.get('notes'), express=params.get('company')).save()
     return render_json({'ret_code': 0})
 
@@ -122,13 +124,11 @@ def addSignOrder(request):
 
     account = Account.objects.get(user=request.user)
 
-    params = {}
-    params.update(request.POST)
-    params['account'] = account.pk
-    params['express'] = int(params['express'][0])
-    logger.debug('params: %s', params)
+    request.POST = request.POST.copy()
+    request.POST['account'] = account.pk
+    request.POST['express'] = int(request.POST['express'][0])
 
-    form = SignOrderForm(params)
+    form = SignOrderForm(request.POST)
     if not form.is_valid():
         logger.warn("form is invalid: %s", form.errors)
         return render_json({'ret_code': 1001, 'msg': '参数不正确'})
@@ -187,7 +187,7 @@ def getOrder(request):
     result = resp.json()
     
     for item in result:
-        item['time'] = datetime.datetime.strptime(item['createtime'],'%b %d, %Y %I:%M:%S %p')
+        item['time'] = datetime.datetime.strptime(item['create_time'],'%b %d, %Y %I:%M:%S %p')
     return render(request, "portal/myOrder.html", {'orders':result})
 
 
@@ -231,35 +231,17 @@ def rule(request):
 
 
 def getRecentSendOrders(user):
-    try:
-        return requests.get('http://mcsd.sinaapp.com/api/getOrder', params={
-            'type': 1,
-            'authcode': Account.objects.get(user=user).openid
-        }).json()
-    except:
-        return []
+    return SendOrder.objects.filter(account__user=user).order_by('-create_time')[:7]
 
 
 def getRecentSignOrders(user):
-    try:
-        return requests.get('http://mcsd.sinaapp.com/api/getOrder', params={
-            'type': 0,
-            'authcode': Account.objects.get(user=user).openid
-        }).json()
-    except:
-        return []
+    return SignOrder.objects.filter(account__user=user).order_by('-create_time')[:7]
 
 
 @login_required
 def recent(request):
     signOrders = getRecentSignOrders(request.user)
     sendOrders = getRecentSendOrders(request.user)
-    logger.debug(signOrders)
-    logger.debug(sendOrders)
-    for item in signOrders:
-        item['createtime'] = datetime.datetime.strptime(item['createtime'], '%b %d, %Y %H:%M:%S %p')
-    for item in sendOrders:
-        item['createtime'] = datetime.datetime.strptime(item['createtime'], '%b %d, %Y %H:%M:%S %p')
     
     return render(request, 'portal/recent.html', {
         'signOrders': signOrders,

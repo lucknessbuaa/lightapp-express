@@ -31,8 +31,21 @@ class SendOrder(models.Model):
     period = models.CharField(verbose_name=u'收件时间', max_length=255)
     note = models.CharField(verbose_name=u'备注', max_length=255, null=True)
 
+    name = models.CharField(verbose_name=u'姓名', max_length=255)
+    address = models.CharField(verbose_name=u'宿舍地址', null=True, max_length=255)
+    phone = models.CharField(verbose_name=u'手机号码', null=True, max_length=255)
+
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
+
+    def status(self):
+        return 0
+
+    def statusString(self):
+        return u'处理中'
+
+    def orderid(self):
+        return str(2000 + self.pk)
 
 
 SIGN_EXPRESS_CHOICES = (
@@ -62,6 +75,16 @@ class SignOrder(models.Model):
 
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
+
+    def status(self):
+        return 0
+
+    def statusString(self):
+        return u'处理中'
+
+
+    def orderid(self):
+        return str(2000 + self.pk)
 
 
 class StoreItem(models.Model):
