@@ -35,6 +35,8 @@ class SendOrder(models.Model):
     address = models.CharField(verbose_name=u'宿舍地址', null=True, max_length=255)
     phone = models.CharField(verbose_name=u'手机号码', null=True, max_length=255)
 
+    # TODO add status
+
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
 
@@ -72,6 +74,7 @@ class SignOrder(models.Model):
     phone = models.CharField(verbose_name=u'手机号码', null=True, max_length=255)
     express = models.IntegerField(verbose_name=u'快递公司', choices=SIGN_EXPRESS_CHOICES)
     note = models.CharField(verbose_name=u'备注', max_length=255, null=True)
+    # TODO add status
 
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
