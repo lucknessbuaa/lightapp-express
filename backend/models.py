@@ -19,6 +19,15 @@ class Account(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
 
 
+class GoodOrder(models.Model):
+    account = models.ForeignKey(Account)
+    goodsid = models.IntegerField(verbose_name=u'商品id', default=0)
+    num     = models.IntegerField(verbose_name=u'购买数量')
+    name    = models.CharField(verbose_name=u'收件人姓名', max_length=255)
+    phone   = models.CharField(verbose_name=u'手机号', max_length=20)
+    destination = models.CharField(verbose_name=u'收件地址', max_length=255)
+    notes   = models.CharField(verbose_name=u'备注', max_length=255)
+
 EXPRESS_CHOICES = (
     (6, u'百世汇通'),
     (5, u'顺丰'),

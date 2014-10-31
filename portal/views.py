@@ -13,7 +13,7 @@ from django.contrib.auth import logout as auth_logout
 from django_render_json import render_json
 import django_auth_json
 
-from backend.models import Account, SendOrder, SignOrder, Goods
+from backend.models import Account, SendOrder, SignOrder, Goods, GoodOrder
 
 logger = logging.getLogger(__name__)
 API_TOKEN = 'jinjidexiaoyuan'
@@ -176,12 +176,32 @@ def doOrder(request):
     account = Account.objects.get(user=request.user)
     params = {}
     params.update(request.POST)
-    params.update({
-        'authcode': account.openid
-    })
-    resp = requests.post('http://mcsd.sinaapp.com/tmall/doOrder', params = params)
-    result = resp.json()
-    return render_json(result)
+    
+    params.update({'account_id':account.id})
+    
+    for k in params:
+        if type(params[k]) == type([]):
+            params[k] = params[k][0]
+
+    goods = Goods.objects.filter(goodsid=params['goodsid'])
+    if len(goods) <= 0:
+        return render_json(json.dumps({'code':902,'msg':u'商品不存在'}))
+    goods = goods[0]
+    if goods.num-goods.consumption <= 0:
+        return render_json(json.dumps({'code':904, 'msg':u'商品库存不足'}))
+    points_needed = goods.points*int(params['num'])
+    if points_needed > account.points:
+        return render_json(json.dumps({'code':820, 'msg':u'用户积分不足'}))
+
+    gOrder = GoodOrder(**params)
+    account.points -= points_needed
+    goods.num -= int(params['num'])
+    goods.consumption += int(params['num'])
+    gOrder.save()
+    account.save()
+    goods.save()
+
+    return render_json(json.dumps({'code':200}))
 
 
 @login_required
