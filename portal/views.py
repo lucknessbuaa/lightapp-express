@@ -215,7 +215,7 @@ def getOrder(request):
         return render(request, "portal/myOrder.html", {'orders':[]})
     
     account = Account.objects.get(user=request.user)
-    gOrder = GoodOrder.objects.filter(account_id=account.id).values()
+    gOrder = GoodOrder.objects.filter(account_id=account.id).order_by('-pk').values()
     gOrder = list(gOrder)
     '''
     resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsOrder', params={
