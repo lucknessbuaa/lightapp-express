@@ -206,7 +206,7 @@ def doOrder(request):
     account.save()
     goods.save()
 
-    return render_json(json.dumps({'code':200}))
+    return render_json({'code':200})
 
 
 @login_required
