@@ -45,7 +45,7 @@ class SendOrder(models.Model):
         return u'处理中'
 
     def orderid(self):
-        return str(2000 + self.pk)
+        return 'SD#%d' % (2000 + self.pk)
 
 
 SIGN_EXPRESS_CHOICES = (
@@ -84,7 +84,7 @@ class SignOrder(models.Model):
 
 
     def orderid(self):
-        return str(2000 + self.pk)
+        return 'SN#%d' % (2000 + self.pk)
 
 
 class StoreItem(models.Model):

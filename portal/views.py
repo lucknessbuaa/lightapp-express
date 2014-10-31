@@ -27,7 +27,7 @@ def md5(s):
 
 
 def addPoints(account):
-    account.points = accout.points + 200
+    account.points = account.points + 200
     account.save()
 
 
@@ -262,10 +262,12 @@ def deleteRecentPackage(user, id):
 @csrf_exempt
 @login_required
 def deleteRecent(request):
-    account = Account.objects.get(user=request.user)
-    authcode = account.openid
+    if request.POST.get('type') == 'sign':
+        SignOrder.objects.filter(pk=request.POST.get('orderid')).delete()
+    else:
+        SendOrder.objects.filter(pk=request.POST.get('orderid')).delete()
 
-    return render_json({'retValue': deleteRecentPackage(authcode, request.POST['orderid'])})
+    return render_json({'retValue': {'code': 200}})
 
 
 def points(request):
