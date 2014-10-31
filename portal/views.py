@@ -195,7 +195,6 @@ def doOrder(request):
 
     gOrder = GoodOrder(**params)
     account.points -= points_needed
-    goods.num -= int(params['num'])
     goods.consumption += int(params['num'])
     gOrder.save()
     account.save()
