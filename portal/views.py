@@ -13,7 +13,7 @@ from django.contrib.auth import logout as auth_logout
 from django_render_json import render_json
 import django_auth_json
 
-from backend.models import Account, SendOrder, SignOrder
+from backend.models import Account, SendOrder, SignOrder, Goods
 
 logger = logging.getLogger(__name__)
 API_TOKEN = 'jinjidexiaoyuan'
@@ -138,13 +138,22 @@ def addSignOrder(request):
 
 
 def store(request):
-
+    '''
     params = {'limit':30}
     resp = requests.get('http://mcsd.sinaapp.com/api/getGoods', params=params)
     goods = resp.json()
-    goods = filter(lambda good: good['goodsid'] != 2, goods)
+    invalid_keys = ['goodsid', 'categoryid', 'priority', 'starttime', 'endtime', 'addtime']
+    for good in goods:
+        for ik in invalid_keys:
+            if ik in good:
+                good.pop(ik)
+    print goods[0]
+    for good in goods:
+        Goods(**good).save()
+    '''
+    gs =  Goods.objects.all().values()
 
-    return render(request, "portal/store.html", {'goods':goods})
+    return render(request, "portal/store.html", {'goods':gs})
 
 
 def storeItem(request):

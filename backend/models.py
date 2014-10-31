@@ -98,3 +98,23 @@ class StormItemOrder(models.Model):
     points = models.IntegerField()
     account = models.ForeignKey(Account)
 
+RATING_CHOICES = ( 
+    (1, u'1'),
+    (2, u'2'),
+    (3, u'3'),
+    (4, u'4'),
+    (5, u'5')
+    )   
+                
+
+class Goods(models.Model):
+    name        = models.CharField(verbose_name=u'商品名称', max_length=255)
+    description = models.CharField(verbose_name='商品描述', max_length=255)
+    detailinfo  = models.CharField(verbose_name='商品详细信息', max_length=500)
+    rating      = models.IntegerField(verbose_name='商品推荐星级', choices=RATING_CHOICES)
+    thumburl    = models.CharField(verbose_name='小图标', max_length=255)
+    imgurl      = models.CharField(verbose_name='大图标', max_length=255)
+    price       = models.IntegerField(verbose_name='商品价格')
+    points      = models.IntegerField(verbose_name='所需积分')
+    num         = models.IntegerField(verbose_name='总量')
+    consumption = models.IntegerField(verbose_name='已出售数量')
