@@ -18,15 +18,36 @@ class Account(models.Model):
 
     create_time = models.DateTimeField(auto_now_add=True)
 
+RATING_CHOICES = ( 
+    (1, u'1'),
+    (2, u'2'),
+    (3, u'3'),
+    (4, u'4'),
+    (5, u'5')
+    )   
+
+class Goods(models.Model):
+    goodsid     = models.IntegerField(verbose_name=u'商品id', default=0)
+    name        = models.CharField(verbose_name=u'商品名称', max_length=255)
+    description = models.CharField(verbose_name='商品描述', max_length=255)
+    detailinfo  = models.CharField(verbose_name='商品详细信息', max_length=500)
+    rating      = models.IntegerField(verbose_name='商品推荐星级', choices=RATING_CHOICES)
+    thumburl    = models.CharField(verbose_name='小图标', max_length=255)
+    imgurl      = models.CharField(verbose_name='大图标', max_length=255)
+    price       = models.IntegerField(verbose_name='商品价格')
+    points      = models.IntegerField(verbose_name='所需积分')
+    num         = models.IntegerField(verbose_name='总量')
+    consumption = models.IntegerField(verbose_name='已出售数量')
 
 class GoodOrder(models.Model):
     account = models.ForeignKey(Account)
-    goodsid = models.IntegerField(verbose_name=u'商品id', default=0)
+    goods   = models.ForeignKey(Goods)
     num     = models.IntegerField(verbose_name=u'购买数量')
     name    = models.CharField(verbose_name=u'收件人姓名', max_length=255)
     phone   = models.CharField(verbose_name=u'手机号', max_length=20)
     destination = models.CharField(verbose_name=u'收件地址', max_length=255)
     notes   = models.CharField(verbose_name=u'备注', max_length=255)
+    status  = models.IntegerField(verbose_name=u'订单状态')
 
 EXPRESS_CHOICES = (
     (6, u'百世汇通'),
@@ -107,24 +128,4 @@ class StormItemOrder(models.Model):
     points = models.IntegerField()
     account = models.ForeignKey(Account)
 
-RATING_CHOICES = ( 
-    (1, u'1'),
-    (2, u'2'),
-    (3, u'3'),
-    (4, u'4'),
-    (5, u'5')
-    )   
-                
 
-class Goods(models.Model):
-    goodsid     = models.IntegerField(verbose_name=u'商品id', default=0)
-    name        = models.CharField(verbose_name=u'商品名称', max_length=255)
-    description = models.CharField(verbose_name='商品描述', max_length=255)
-    detailinfo  = models.CharField(verbose_name='商品详细信息', max_length=500)
-    rating      = models.IntegerField(verbose_name='商品推荐星级', choices=RATING_CHOICES)
-    thumburl    = models.CharField(verbose_name='小图标', max_length=255)
-    imgurl      = models.CharField(verbose_name='大图标', max_length=255)
-    price       = models.IntegerField(verbose_name='商品价格')
-    points      = models.IntegerField(verbose_name='所需积分')
-    num         = models.IntegerField(verbose_name='总量')
-    consumption = models.IntegerField(verbose_name='已出售数量')

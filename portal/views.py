@@ -178,6 +178,7 @@ def doOrder(request):
     params.update(request.POST)
     
     params.update({'account_id':account.id})
+    params.update({'status':0})
     
     for k in params:
         if type(params[k]) == type([]):
@@ -192,7 +193,8 @@ def doOrder(request):
     points_needed = goods.points*int(params['num'])
     if points_needed > account.points:
         return render_json(json.dumps({'code':820, 'msg':u'用户积分不足'}))
-
+    params.pop('goodsid')
+    params.update({'goods_id': goods.id})
     gOrder = GoodOrder(**params)
     account.points -= points_needed
     goods.consumption += int(params['num'])
@@ -209,13 +211,20 @@ def getOrder(request):
         return render(request, "portal/myOrder.html", {'orders':[]})
     
     account = Account.objects.get(user=request.user)
+    gOrder = GoodOrder.objects.filter(account_id=account.id).values()
+    gOrder = list(gOrder)
+    '''
     resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsOrder', params={
         'authcode': account.openid
     })
     result = resp.json()
+    print result
     
     for item in result:
         item['time'] = datetime.datetime.strptime(item['create_time'],'%b %d, %Y %I:%M:%S %p')
+    '''
+    result = json.dumps(gOrder)
+    print result
     return render(request, "portal/myOrder.html", {'orders':result})
 
 
@@ -278,6 +287,7 @@ def recent(request):
 
 
 def deleteRecentPackage(user, id):
+    '''
     try:
         return requests.post('http://mcsd.sinaapp.com/order/cancel', params={
             'authcode': user,
@@ -285,6 +295,10 @@ def deleteRecentPackage(user, id):
         }).json()
     except:
         return []
+    '''
+    GoodOrder.objects.filter(id=id).delete()
+    return json.dumps({'code': 200})
+
 
 
 @csrf_exempt
