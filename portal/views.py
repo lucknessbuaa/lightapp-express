@@ -142,7 +142,7 @@ def store(request):
     params = {'limit':30}
     resp = requests.get('http://mcsd.sinaapp.com/api/getGoods', params=params)
     goods = resp.json()
-    invalid_keys = ['goodsid', 'categoryid', 'priority', 'starttime', 'endtime', 'addtime']
+    invalid_keys = ['categoryid', 'priority', 'starttime', 'endtime', 'addtime']
     for good in goods:
         for ik in invalid_keys:
             if ik in good:
@@ -159,8 +159,8 @@ def store(request):
 def storeItem(request):
     goodsid = int(request.GET.get('goodsid'))
     params = {'goodsid':goodsid}
-    resp = requests.get('http://mcsd.sinaapp.com/api/getGoodsById', params=params)
-    good = resp.json()
+    good = Goods.objects.filter(goodsid=goodsid)
+    good = good.values()[0]
     good['remain'] = good['num'] - good['consumption']
     good['ratingRange'] = range(good['rating'])
 

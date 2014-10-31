@@ -108,6 +108,7 @@ RATING_CHOICES = (
                 
 
 class Goods(models.Model):
+    goodsid     = models.IntegerField(verbose_name=u'商品id', default=0)
     name        = models.CharField(verbose_name=u'商品名称', max_length=255)
     description = models.CharField(verbose_name='商品描述', max_length=255)
     detailinfo  = models.CharField(verbose_name='商品详细信息', max_length=500)
