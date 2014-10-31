@@ -48,6 +48,9 @@ class GoodOrder(models.Model):
     destination = models.CharField(verbose_name=u'收件地址', max_length=255)
     notes   = models.CharField(verbose_name=u'备注', max_length=255)
     status  = models.IntegerField(verbose_name=u'订单状态')
+    total_price = models.IntegerField()
+    total_points = models.IntegerField()
+    
 
 EXPRESS_CHOICES = (
     (6, u'百世汇通'),

@@ -186,15 +186,19 @@ def doOrder(request):
 
     goods = Goods.objects.filter(goodsid=params['goodsid'])
     if len(goods) <= 0:
-        return render_json(json.dumps({'code':902,'msg':u'商品不存在'}))
+        return render_json({'code':902,'msg':u'商品不存在'})
     goods = goods[0]
     if goods.num-goods.consumption <= 0:
-        return render_json(json.dumps({'code':904, 'msg':u'商品库存不足'}))
+        return render_json({'code':904, 'msg':u'商品库存不足'})
     points_needed = goods.points*int(params['num'])
     if points_needed > account.points:
-        return render_json(json.dumps({'code':820, 'msg':u'用户积分不足'}))
+        return render_json({'code':820, 'msg':u'用户积分不足'})
+    total_price = goods.price*int(params['num'])
+    total_points = goods.points* int(params['num'])
     params.pop('goodsid')
     params.update({'goods_id': goods.id})
+    params.update({'total_price': total_price})
+    params.update({'total_points': total_points})
     gOrder = GoodOrder(**params)
     account.points -= points_needed
     goods.consumption += int(params['num'])
@@ -223,8 +227,7 @@ def getOrder(request):
     for item in result:
         item['time'] = datetime.datetime.strptime(item['create_time'],'%b %d, %Y %I:%M:%S %p')
     '''
-    result = json.dumps(gOrder)
-    print result
+    result = gOrder
     return render(request, "portal/myOrder.html", {'orders':result})
 
 
@@ -287,7 +290,6 @@ def recent(request):
 
 
 def deleteRecentPackage(user, id):
-    '''
     try:
         return requests.post('http://mcsd.sinaapp.com/order/cancel', params={
             'authcode': user,
@@ -295,10 +297,6 @@ def deleteRecentPackage(user, id):
         }).json()
     except:
         return []
-    '''
-    GoodOrder.objects.filter(id=id).delete()
-    return json.dumps({'code': 200})
-
 
 
 @csrf_exempt
