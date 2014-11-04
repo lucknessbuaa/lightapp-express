@@ -4,7 +4,8 @@ import views
 urlpatterns = patterns('backend.views',
     url(r'^$', 'index'),
     url(r'^login$', 'login'),
-    url(r'^logout$', 'logout')
+    url(r'^logout$', 'logout'),
+    url(r'^send$', 'send_package')
 )
 
 urlpatterns = urlpatterns + patterns('backend.fetch_views',
