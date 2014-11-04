@@ -18,6 +18,8 @@
     "respond": "~1.4.2",
     "jquery-placeholder": "~2.0.8",
     "jQuery.serializeObject": "~2.0.3",
+    "smalot-bootstrap-datetimepicker": "~2.2.0",
+    "moment": "~2.6.0",
     "parsleyjs": "~1.2.4",
     "jquery.iframe-transport": "~1.0.0",
     "select2": "~3.4.6",

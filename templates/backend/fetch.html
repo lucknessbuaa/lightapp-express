@@ -2,78 +2,38 @@
 {% load django_tables2 %}
 
 {% block title %}
-麻辣烫-菜品
+南快递-代取订单
 {% endblock %}
 
 {% block css %}
 {{ block.super }}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/backend/dishes.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/backend/fetch.css">
 {% endblock %}
 
 {% block content %}
 {% include "backend/navbar.html" with tab=request.nav.active_tab %}
 <div class="container">
-    <div class="btn-toolbar">
-        <button class="btn btn-primary" id="create-dishes">
-            <span class="glyphicon glyphicon-plus"></span>&nbsp;添加菜品
-        </button>
-    </div>
+    <form class="filter form-inline" method="GET">
+        <div class="form-group">{{ form.start }}</div>
+        <div class="form-group">&nbsp;to&nbsp;</div>
+        <div class="form-group">{{ form.stop }}</div>
+        <div class="form-group btn-danger hidden" id="alert">&nbsp;筛选截止日期应该在开始日期之后！</div>
+    </form>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <!-- include "backend/search.html" with action="talk" value=request.GET.q href=request.path -->
-            菜品信息
+            代取订单
         </div>
         <div class="panel-body">
-            <!--% render_table table "backend/table_template.html" %-->
+            {% render_table table "backend/table_template.html" %}
         </div>
     </div>
 </div>
 {% endblock %}
 
 {% block js %}
-<script type="text/template" id="form-tpl">
-    <form class="form-horizontal" role="form" method='POST'>
-        {{ form.pk }}
-        <p class="alert" style="display: none;"></p>
-        <div class="form-group">
-            <label class="field required control-label" 
-                    for="{{ form.name.id_for_label }}">
-                    {{ form.name.label }}</label>
-            <div class="value">
-                {{ form.name }}
-                <ul class="parsley-error-list" style="display: none"></ul>
-            </div>
-        </div>
-        <div class="form-group group-cover">
-            <label class="field required control-label"
-                    for="{{ form.cover.id_for_label }}">
-                    {{ form.cover.label}}</label>
-            <div class="value cover">
-                <ul class="parsley-error-list" style="display: none" name="coverEmpty"></ul>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="field required control-label" 
-                    for="{{ form.price.id_for_label }}">
-                    {{ form.price.label }}</label>
-            <div class="value">
-                {{ form.price }}
-                <ul class="parsley-error-list" style="display: none"></ul>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="field required control-label" 
-                    for="{{ form.desc.id_for_label }}">
-                    {{ form.desc.label }}</label>
-            <div class="value">
-                {{ form.desc }}
-                <ul class="parsley-error-list" style="display: none"></ul>
-            </div>
-        </div>
-    </form> 
-</script>
-
 <script>var global = window;</script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/backend/dishes.js">
+<script type="text/javascript" src="{{ STATIC_URL }}js/backend/fetch.js">
 </script>
 {% endblock %}

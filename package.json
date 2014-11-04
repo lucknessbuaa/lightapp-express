@@ -68,6 +68,9 @@
     "chart": "./assets/js/common/ChartNew.js",
     "formProto": "./assets/js/common/formProto.js",
     "simple-upload": "./assets/js/common/simple-upload.js",
+    "bootstrap-datetimepicker": "./assets/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js",
+    "zh-CN": "./assets/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js",
+    "moment": "./assets/components/moment/moment.js",
     "formValidationProto": "./assets/js/common/formValidationProto.js"
   },
   "browserify-shim": {
