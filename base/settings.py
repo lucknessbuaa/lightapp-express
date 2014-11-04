@@ -3,7 +3,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = 'zuvp4036q9zpc!)0sac=qhk!%udh^5dcavrr@lc6c)m41f3nz%'
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
 
@@ -22,7 +22,8 @@ INSTALLED_APPS = (
     'base',
     'portal',
     'backend',
-    'social_auth'
+    'social_auth',
+    'django_tables2'
 )
 
 BAIDU_CLIENT_KEY = 'hqle5S6E74nhq9GVXDiKHG6s'
