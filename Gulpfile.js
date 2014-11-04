@@ -69,19 +69,10 @@ gulp.task('login', function() {
 });
 
 gulp.task('scripts', function() {
-    var dishes = browserifyStream("./backend/client/js/dishes.js", "dishes.js")
+    var fetch = browserifyStream("./backend/client/js/fetch.js", "fetch.js")
         .pipe(gulp.dest('assets/js/backend'));
 
-    var takeout = browserifyStream("./backend/client/js/takeout.js", "takeout.js")
-        .pipe(gulp.dest('assets/js/backend'));
-
-    var preorder = browserifyStream("./backend/client/js/preorder.js", "preorder.js")
-        .pipe(gulp.dest('assets/js/backend'));
-
-    var user = browserifyStream("./backend/client/js/user.js", "user.js")
-        .pipe(gulp.dest('assets/js/backend'));
-
-    return merge(dishes, takeout, preorder, user);
+    return merge(fetch);
 });
 
 gulp.task('images', function() {
