@@ -1,12 +1,8 @@
 # -*- coding:utf-8 -*-
-
 import logging
 from datetime import datetime
-
 from datetime import date
 from datetime import timedelta
-
-
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -25,7 +21,9 @@ from django.contrib.auth.decorators import user_passes_test
 from base.decorators import active_tab
 from django.http import HttpResponseRedirect
 
+
 logger = logging.getLogger(__name__)
+
 
 @ensure_csrf_cookie
 def login(request):
@@ -43,9 +41,11 @@ def login(request):
         auth.login(request, user)
         return render_json({'ret_code': RET_CODES["ok"]})
 
+
 def logout(request):
     auth.logout(request)
     return redirect('/backend/login')
+
 
 def index(request):
     if not request.user.is_authenticated():
@@ -55,7 +55,7 @@ def index(request):
     else:
         return redirect('/backend/fetch')
 
-# Create your views here.
+
 class ContentTable(tables.Table):
     express = tables.columns.Column(verbose_name='快递公司',orderable=False)
     time = tables.columns.DateTimeColumn(verbose_name='上门日期', orderable=False, format='Y-m-d H:i')
@@ -75,6 +75,7 @@ class ContentTable(tables.Table):
         attrs = {
                 'class': 'table table-bordered table-striped'
                 }
+
 
 class FilterForm(forms.Form):
     start = forms.DateField(label='start', input_formats=["%Y-%m-%d"],
@@ -102,6 +103,7 @@ class FilterForm(forms.Form):
             "start": start,
             "stop": stop,
         }
+
 
 @require_GET
 @user_passes_test(lambda u:u.is_staff, login_url='/backend/login')
