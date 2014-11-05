@@ -21,6 +21,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'base',
     'portal',
+    'mgr',
     'backend',
     'social_auth',
     'django_tables2'

@@ -1,0 +1,10 @@
+{% extends "mgr/layout.html" %}
+
+{% block body %}
+{% include "mgr/navbar.html" with tab=request.nav.active_tab %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script type="text/javascript" 
+        src="{{ STATIC_URL }}js/mgr/sendOrdersToFetch.js"></script>
+{% endblock %}

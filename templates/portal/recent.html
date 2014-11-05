@@ -45,10 +45,12 @@
             <div class="tips">订单号: {{ order.orderid }}</div>
             <p class='meta'>
                 <b class="company-field">{{ order.company }}</b> 
-                <span class="num-field">{{ order.num|default:'--' }}&nbsp;件</span>&nbsp;&nbsp;
-                {% if order.status == 3 %}
+                <span class="num-field">
+                    {{ order.num|default:'--' }}&nbsp;件
+                </span>&nbsp;&nbsp;
+                {% if order.status == order.ORDER_SENT %}
                 <span class="status-field label label-success label-sm">{{ order.statusString }}</span>
-                {% elif order.status == 0 %}
+                {% elif order.status == order.ORDER_INITIAL %}
                 <span class="status-field label label-default label-sm">{{ order.statusString }}</span>
                 <span class="btn-danger label deletePackage">删除</span>
                 {% else %}

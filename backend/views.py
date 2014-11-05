@@ -138,6 +138,4 @@ def send_package(request):
         'stop': datetime.strftime(stop, "%Y-%m-%d"),
     })
 
-
     return render(request, "backend/send.html", {'table': table, 'form':form})
-
