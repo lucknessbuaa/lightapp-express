@@ -7,7 +7,7 @@
 
 {% block css %}
 {{ block.super }}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/send.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/backend/send.css">
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
 <div class="container">
     <form class="filter form-inline" method="GET">
         <div class="form-group">{{ form.start }}</div>
-        <div class="form-group">&nbsp;to&nbsp;</div>
+        <div class="form-group">&nbsp;---&nbsp;</div>
         <div class="form-group">{{ form.stop }}</div>
         <div class="form-group btn-danger hidden" id="alert">&nbsp;筛选截止日期应该在开始日期之后！</div>
     </form>
