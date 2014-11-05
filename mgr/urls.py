@@ -7,5 +7,6 @@ urlpatterns = patterns('mgr.views',
     url(r'^send/delivery$', 'sendOrdersToDelivery'),
 
     url(r'api/send/receive', 'receiveSendOrder'),
-    url(r'api/send/complete', 'completeSendOrder')
+    url(r'api/send/complete', 'completeSendOrder'),
+    url(r'logout', 'logout')
 )

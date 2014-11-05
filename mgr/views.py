@@ -2,10 +2,11 @@
 import time
 import logging
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.csrf import csrf_exempt
+import django.contrib.auth as auth
 
 from django_render_json import render_json
 from base.decorators import active_tab
@@ -90,3 +91,8 @@ def completeSendOrder(request):
     return render_json({
         'ret_code': 0
     })
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/app/')
