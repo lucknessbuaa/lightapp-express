@@ -1,0 +1,39 @@
+{% extends "backend/scaffold.html" %}
+{% load django_tables2 %}
+
+{% block title %}
+南快递-代寄订单
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/send.css">
+{% endblock %}
+
+{% block content %}
+{% include "backend/navbar.html" with tab=request.nav.active_tab %}
+<div class="container">
+    <form class="filter form-inline" method="GET">
+        <div class="form-group">{{ form.start }}</div>
+        <div class="form-group">&nbsp;to&nbsp;</div>
+        <div class="form-group">{{ form.stop }}</div>
+        <div class="form-group btn-danger hidden" id="alert">&nbsp;筛选截止日期应该在开始日期之后！</div>
+    </form>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <!-- include "backend/search.html" with action="talk" value=request.GET.q href=request.path -->
+            代寄订单
+        </div>
+        <div class="panel-body">
+            {% render_table table "backend/table_template.html" %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>var global = window;</script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/backend/fetch.js">
+</script>
+{% endblock %}
