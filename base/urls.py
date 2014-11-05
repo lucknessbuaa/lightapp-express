@@ -9,7 +9,7 @@ def index(request):
 
 urlpatterns = patterns('',
     url(r'^$', index),
-    #url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^oauth/', include('social_auth.urls')),
     url(r'^app/', include('portal.urls')),
     url(r'^backend/', include('backend.urls')),

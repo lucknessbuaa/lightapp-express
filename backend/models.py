@@ -96,6 +96,13 @@ class SendOrder(models.Model):
     def orderid(self):
         return 'SD#%d' % (2000 + self.pk)
 
+    def expressName(self):
+        for item in EXPRESS_CHOICES:
+            if item[0] == self.express:
+                return item[1]
+
+        return u'未知'
+
 
 SIGN_EXPRESS_CHOICES = (
     (1, u'圆通'),
@@ -144,5 +151,3 @@ class StoreItem(models.Model):
 class StormItemOrder(models.Model):
     points = models.IntegerField()
     account = models.ForeignKey(Account)
-
-

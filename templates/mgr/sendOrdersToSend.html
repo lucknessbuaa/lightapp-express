@@ -18,20 +18,18 @@
                 &nbsp;&nbsp;&nbsp;
                 <span>1件</span>
             </p>
-            
-            <p> 姓名: {{ order.name }}&nbsp;&nbsp;&nbsp;&nbsp;手机: {{ order.phone }} </p>
-            <p> 地址: {{ order.address }} </p>
-            <p class='text-danger'> 备注: {{ order.note|default:'无' }} </p>
-            <p>预约收件时间: <strong>{{ order.time|date:'Y-m-d'}} {{ order.period }}</strong></p>
+
+            <p>姓名: {{ order.name }}&nbsp;&nbsp;&nbsp;&nbsp;手机: {{ order.phone }}</p>
+            <p>地址: {{ order.address }}</p>
             <p class='text-muted small'>{{ order.create_time|date:'Y-m-d h:i' }}</p>
 
             <p>
                 <form class="form form-inline">
                     <input type="hidden" name='id' value='{{ order.id }}'>
-                    <input type="text" name='price' class='form-control' 
-                        placeholder='价格/元' style='width: 100px; display: inline;'>
-                    <input type='submit' class="btn btn-success" value='已收件' 
-                            data-loading-text='已收件'>
+                    <input type="text" name='order_no' class='form-control' 
+                        placeholder='快递单号' style='width: 100px; display: inline;'>
+                    <input type='submit' class="btn btn-success" value='完成寄出' 
+                        data-loading-text='完成寄出'>    
                 </form>
             </p>
         </li> 
@@ -44,5 +42,5 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 <script type="text/javascript" 
-        src="{{ STATIC_URL }}js/mgr/send_fetch.js"></script>
+        src="{{ STATIC_URL }}js/mgr/send_delivery.js"></script>
 {% endblock %}
