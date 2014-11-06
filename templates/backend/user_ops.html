@@ -1,0 +1,11 @@
+<div class="btn-group btn-group-sm"
+    data-pk="{{ record.pk }}"
+    data-name="{{ record.name}}"
+    data-phone="{{ record.phone }}"
+    data-create_time="{{ record.create_time|date:'Y-m-d H:m:s' }}"
+    >
+
+    <button class="btn btn-danger delete" title="delete">
+        <span class="glyphicon glyphicon-remove"></span>
+    </button>
+</div>

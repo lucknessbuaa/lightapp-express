@@ -22,10 +22,11 @@ from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import User
 
 from base.decorators import active_tab
 from base.utils import fieldAttrs, with_valid_form, RET_CODES
-from backend.model import Account
+from backend.models import Account
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +34,7 @@ logger = logging.getLogger(__name__)
 @active_tab('user')
 @user_passes_test(lambda u:u.is_staff, login_url='/backend/login')
 def user(request):
-    user = Account.objects.filter(is_staff=False)
+    user = Account.objects.filter(user__is_staff=True)
     search = False
     if 'q' in request.GET and request.GET['q'] <> "":
         logger.error(request.GET['q'])
@@ -42,39 +43,75 @@ def user(request):
             search = True
     elif 'q' in request.GET and request.GET['q'] == "":
         return HttpResponseRedirect(request.path)
+    form = UserForm()
     table = UserTable(user)
     if search :
         table = UserTable(user, empty_text='没有搜索结果')
     RequestConfig(request, paginate={"per_page": 10}).configure(table)
     return render(request, "backend/user.html", {
-        "table": table
+        "table": table,
+        "form": form
     })
 
 
 class UserTable(tables.Table):
-    username = tables.columns.Column(verbose_name='昵称', empty_values=(), orderable=False)
-    id = tables.columns.Column(verbose_name='头像', empty_values=(), orderable=False)
-    date_joined = tables.columns.DateTimeColumn(verbose_name='创建时间', empty_values=(), format='Y-m-d H:i')
-    last_login = tables.columns.DateTimeColumn(verbose_name='最近登录时间', empty_values=(), format='Y-m-d H:i')
-
-
-    def render_id(id, value):
-        user = User.objects.get(id=value)
-        social = UserSocialAuth.objects.get(user=user)
-        imgUrl = ""
-        if social.provider == 'baidu':
-            imgUrl = 'http://tb.himg.baidu.com/sys/portrait/item/{portrait}' % social.extra_data
-        elif social.provider == 'weibo':
-            imgUrl =  social.extra_data['profile_image_url']
-        elif social.provider == 'qq':
-            imgUrl = social.extra_data['figureurl_2']
-        return mark_safe('<img src="%s" />' % escape(imgUrl))
+    pk = tables.columns.Column(verbose_name='工号', empty_values=(), orderable=False)
+    name = tables.columns.Column(verbose_name='姓名', empty_values=(), orderable=False)
+    phone = tables.columns.Column(verbose_name='手机号码', empty_values=(), orderable=False)
+    create_time = tables.columns.DateTimeColumn(verbose_name='创建时间', empty_values=(), format='Y-m-d H:i:s', orderable=False)
+    ops = tables.columns.TemplateColumn(verbose_name='操作', template_name="backend/user_ops.html", orderable=False)
         
     class Meta:
-        model = User
-        empty_text = u'没有用户信息'
-        fields = ("username", "id", "date_joined", "last_login")
+        model = Account
+        empty_text = u'没有员工信息'
+        fields = ("pk", "name", "phone", "create_time")
         attrs = {
             'class': 'table table-bordered table-striped'
         }
 
+class UserForm(forms.ModelForm):
+    name = forms.ModelChoiceField(label=u'待添加员工', queryset=Account.objects.filter(user__is_staff=False),
+        widget=forms.HiddenInput(attrs=us.extend({}, fieldAttrs, {
+            'parsley-required': '',
+        })))
+
+    class Meta:
+        model = Account
+
+
+@user_passes_test(lambda u:u.is_staff, login_url='/backend/login')
+@json
+def delete_user(request):
+    user = Account.objects.get(pk=request.POST["id"]);
+    staff = User.objects.get(id=user.user.id)
+    staff.is_staff = False
+    staff.save()
+
+    return {'ret_code': RET_CODES['ok']}
+
+@user_passes_test(lambda u:u.is_staff, login_url='/backend/login')
+@json
+def edit_user(request, id):
+    user = Account.objects.get(id=request.POST["pk"]);
+    staff = User.objects.get(id=user.user.id)
+    staff.is_staff = True
+    staff.save()
+
+    return {'ret_code': RET_CODES['ok']}
+
+@user_passes_test(lambda u:u.is_staff, login_url='/backend/login')
+@json
+def requireName(request):
+    selectName = Account.objects.filter(user__is_staff=False)
+
+    def mapName(name):
+        return {
+            'id': name.id,
+            'text': name.name
+        }
+
+    selectName = map(mapName, selectName)
+    return{
+        'ret_code': RET_CODES['ok'],
+        'selectName': selectName
+    }

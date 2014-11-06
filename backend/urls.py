@@ -13,7 +13,10 @@ urlpatterns = urlpatterns + patterns('backend.fetch_views',
 )
 
 urlpatterns = urlpatterns + patterns('backend.user_views',
-    url(r'^user$', 'user')
+    url(r'^user$', 'user'),
+    url(r'^user/(?P<id>\d+)$', 'edit_user'),
+    url(r'^user/delete$', 'delete_user'),
+    url(r'^user/requireName$', 'requireName')
 )
 
 '''
