@@ -58,18 +58,19 @@ def index(request):
 
 class ContentTable(tables.Table):
     express = tables.columns.Column(verbose_name='快递公司',orderable=False)
-    time = tables.columns.DateTimeColumn(verbose_name='上门日期', orderable=False, format='Y-m-d H:i')
     create_time = tables.columns.DateTimeColumn(verbose_name='创建日期', orderable=False, format='Y-m-d H:i')
+    time = tables.columns.DateTimeColumn(verbose_name='上门日期', orderable=False, format='Y-m-d')
     period = tables.columns.Column(verbose_name='收件时间', orderable=False)
     note = tables.columns.Column(verbose_name='备注', orderable=False)
 
-    name = tables.columns.Column(verbose_name=(u'姓名'), orderable=False)
-    address = tables.columns.Column(verbose_name=(u'宿舍地址'),orderable=False)
-    phone = tables.columns.Column(verbose_name=(u'手机号码'),orderable=False)
+    name = tables.columns.Column(verbose_name=u'姓名', orderable=False)
+    address = tables.columns.Column(verbose_name=u'宿舍地址', orderable=False)
+    phone = tables.columns.Column(verbose_name=u'手机号码', orderable=False)
+    status = tables.columns.TemplateColumn(verbose_name=u'状态', template_name=u'backend/send_order_status.html')
 
     class Meta:
         model=SendOrder
-        fields = ('express', 'time', 'create_time','period', 'note', 'name', 'address', 'phone')
+        fields = ('express', 'time', 'create_time','period', 'note', 'name', 'address', 'phone', 'status')
         empty_text=('没有代寄订单')
         exclude = {'pk'}
         attrs = {
@@ -101,6 +102,7 @@ class FilterForm(forms.Form):
 
         return {
             "start": start,
+    
             "stop": stop,
         }
 
@@ -117,20 +119,8 @@ def send_package(request):
     stopselect = stop + timedelta(days=1)
     start = form.cleaned_data["start"]
 
-    sorder = SendOrder.objects.filter(create_time__gte=start, create_time__lte=stopselect).order_by('-pk')
-
-    search = False
-    if 'q' in request.GET and request.GET['q'] <> "":
-        logger.error(request.GET['q'])
-        dishes = dishes.filter(Q(name__contains=request.GET['q']))
-        if not dishes.exists() :
-            search = True
-    elif 'q' in request.GET and request.GET['q'] == "":
-        return HttpResponseRedirect(request.path)
-
-    table = ContentTable(sorder)
-    if search :
-        table = SignOrderTable(signOrders, empty_text='没有搜索结果')
+    sorders = SendOrder.objects.filter(create_time__gte=start, create_time__lte=stopselect).order_by('-pk')
+    table = ContentTable(sorders)
 
     RequestConfig(request).configure(table)
     form = FilterForm({
