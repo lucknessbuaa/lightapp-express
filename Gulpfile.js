@@ -72,7 +72,10 @@ gulp.task('scripts', function() {
     var fetch = browserifyStream("./backend/client/js/fetch.js", "fetch.js")
         .pipe(gulp.dest('assets/js/backend'));
 
-    return merge(fetch);
+    var user = browserifyStream("./backend/client/js/user.js", "user.js")
+        .pipe(gulp.dest('assets/js/backend'));
+
+    return merge(fetch, user);
 });
 
 gulp.task('images', function() {

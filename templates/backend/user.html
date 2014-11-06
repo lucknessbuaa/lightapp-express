@@ -1,0 +1,53 @@
+{% extends "backend/scaffold.html" %}
+{% load django_tables2 %}
+
+{% block title %}
+南快递-人员管理
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/backend/user.css">
+{% endblock %}
+
+{% block content %}
+{% include "backend/navbar.html" with tab=request.nav.active_tab %}
+<div class="container">
+    <div class="btn-toolbar">
+        <button class="btn btn-primary" id="add-user">
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;添加工作人员
+        </button>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <!-- include "backend/search.html" with action="talk" value=request.GET.q href=request.path -->
+            用户信息
+        </div>
+        <div class="panel-body">
+            {% render_table table "backend/table_template.html" %}
+        </div>
+    </div>
+</div>
+<div data-id="{{ record.id }}"></div>
+{% endblock %}
+
+{% block js %}
+<script type="text/template" id="form-tpl">
+    <form class="form-horizontal" role="form" method='POST'>
+        <p class="alert" style="display: none;"></p>
+        <div class="form-group">
+            <label class="field required control-label" 
+                for="{{ form.name.id_for_label }}">
+                {{ form.name.label }}</label>
+            <div class="value">
+                {{ form.name }}
+                <ul class="parsley-error-list" style="display: none"></ul>
+            <div>
+        </div>
+    </form>
+</script>
+<script>var global = window;</script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/backend/user.js">
+</script>
+{% endblock %}
+

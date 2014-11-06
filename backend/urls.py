@@ -12,6 +12,13 @@ urlpatterns = urlpatterns + patterns('backend.fetch_views',
     url(r'^fetch$', 'fetch')
 )
 
+urlpatterns = urlpatterns + patterns('backend.user_views',
+    url(r'^user$', 'user'),
+    url(r'^user/(?P<id>\d+)$', 'edit_user'),
+    url(r'^user/delete$', 'delete_user'),
+    url(r'^user/requireName$', 'requireName')
+)
+
 '''
 urlpatterns = urlpatterns + patterns('backend.dishes_views',
     url(r'^dishes$', 'dishes'),
