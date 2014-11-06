@@ -1,0 +1,7 @@
+{% if record.status == record.ORDER_INITIAL %}
+<span class="label label-danger">{{ record.statusString }}</span>
+{% elif record.status == record.ORDER_RECEIVED %}
+<span class="label label-info">{{ record.statusString }}</span>
+{% else %}
+<span class="label label-success">{{ record.statusString }}</span>
+{% endif %}
