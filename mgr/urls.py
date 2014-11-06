@@ -8,5 +8,8 @@ urlpatterns = patterns('mgr.views',
 
     url(r'api/send/receive', 'receiveSendOrder'),
     url(r'api/send/complete', 'completeSendOrder'),
+    url(r'api/sign/receive', 'receiveSignOrder'),
+    url(r'api/sign/refuse', 'refuseSignOrder'),
+    url(r'api/sign/complete', 'completeSignOrder'),
     url(r'logout', 'logout')
 )

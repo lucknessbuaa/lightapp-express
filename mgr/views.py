@@ -10,22 +10,24 @@ import django.contrib.auth as auth
 
 from django_render_json import render_json
 from base.decorators import active_tab
-from backend.models import SendOrder
+from backend.models import SendOrder, SignOrder
 
 
 logger = logging.getLogger(__name__)
 
-
 @user_passes_test(lambda u:u.is_staff, login_url='/app/')
 @active_tab('sign_fetch')
 def signOrdersToFetch(request):
-    pass
-
+    orders = SignOrder.objects.filter(status=SignOrder.ORDER_INITIAL)
+    logger.debug('sign orders count: %d', orders.count())
+    return render(request, 'mgr/signOrdersToFetch.html', {'orders': orders})
 
 @user_passes_test(lambda u:u.is_staff, login_url='/app/')
-@active_tab('sign_send')
+@active_tab('sign_delivery')
 def signOrdersToDelivery(request):
-    pass
+    orders = SignOrder.objects.filter(status=SendOrder.ORDER_RECEIVED)
+    logger.debug('sign orders count: %d', orders.count())
+    return render(request, 'mgr/signOrdersToSend.html', {'orders': orders})
 
 
 @user_passes_test(lambda u:u.is_staff, login_url='/app/')
@@ -47,10 +49,55 @@ def sendOrdersToDelivery(request):
         'orders': orders
     })
 
+@require_POST
+@csrf_exempt
+def receiveSignOrder(request):
+    id = request.POST.get('id')
+
+    if not id:
+        return render_json({
+            'ret_code': 1001
+        })
+    order = SignOrder.objects.filter(status=SignOrder.ORDER_INITIAL, pk=id)
+    order.update(status=SendOrder.ORDER_RECEIVED)
+    
+    return render_json({
+        'ret_code': 0
+    })
+
+@require_POST
+@csrf_exempt
+def refuseSignOrder(request):
+    id = request.POST.get('id')
+
+    if not id:
+        return render_json({'ret_code': 1001})
+
+    order = SignOrder.objects.filter(status=SignOrder.ORDER_INITIAL, pk=id)
+    order.update(status=SendOrder.ORDER_CANCELED)
+
+    return render_json({'ret_code': 0})
 
 @require_POST
 @csrf_exempt
 def receiveSendOrder(request):
+    id = request.POST.get('id')
+
+    if not id:
+        return render_json({
+            'ret_code': 1001
+        })
+
+    order = SendOrder.objects.filter(status=SendOrder.ORDER_INITIAL, pk=id)
+    order.update(status=SendOrder.ORDER_RECEIVED)
+
+    return render_json({
+        'ret_code': 0
+    })
+
+@require_POST
+@csrf_exempt
+def completeSignOrder(request):
     id = request.POST.get('id')
     price = request.POST.get('price')
 
@@ -66,13 +113,13 @@ def receiveSendOrder(request):
             'ret_code': 1001
         })
 
-    order = SendOrder.objects.filter(status=SendOrder.ORDER_INITIAL, pk=id)
-    order.update(status=SendOrder.ORDER_RECEIVED, price=price)
 
-    return render_json({
-        'ret_code': 0
-    })
 
+    order = SignOrder.objects.filter(status=SendOrder.ORDER_RECEIVED, pk=id)
+    order.update(status=SendOrder.ORDER_SENT, price=price)
+    
+
+    return render_json({'ret_code': 0 })
 
 @require_POST
 @csrf_exempt

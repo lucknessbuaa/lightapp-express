@@ -130,7 +130,7 @@ def addSignOrder(request):
     request.POST = request.POST.copy()
     request.POST['account'] = account.pk
     request.POST['express'] = int(request.POST['express'][0])
-
+    request.POST['status'] = 0
     form = SignOrderForm(request.POST)
     if not form.is_valid():
         logger.warn("form is invalid: %s", form.errors)
@@ -141,19 +141,6 @@ def addSignOrder(request):
 
 
 def store(request):
-    '''
-    params = {'limit':30}
-    resp = requests.get('http://mcsd.sinaapp.com/api/getGoods', params=params)
-    goods = resp.json()
-    invalid_keys = ['categoryid', 'priority', 'starttime', 'endtime', 'addtime']
-    for good in goods:
-        for ik in invalid_keys:
-            if ik in good:
-                good.pop(ik)
-    print goods[0]
-    for good in goods:
-        Goods(**good).save()
-    '''
     gs =  Goods.objects.all().values()
 
     return render(request, "portal/store.html", {'goods':gs})

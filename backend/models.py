@@ -122,19 +122,31 @@ SIGN_EXPRESS_CHOICES = (
 )
 
 class SignOrder(models.Model):
+    ORDER_INITIAL = 0
+    ORDER_RECEIVED = 1
+    ORDER_SENT = 2
+    ORDER_CANCELED = 3
+
+    ORDER_STATUS =(
+        (ORDER_INITIAL, u'处理中'),
+        (ORDER_RECEIVED, u'已收件，待寄出'),
+        (ORDER_SENT, u'已完成'),
+        (ORDER_CANCELED, u'订单取消')
+    )
+
     account = models.ForeignKey(Account)
     name = models.CharField(verbose_name=u'姓名', max_length=255)
     address = models.CharField(verbose_name=u'宿舍地址', null=True, max_length=255)
     phone = models.CharField(verbose_name=u'手机号码', null=True, max_length=255)
     express = models.IntegerField(verbose_name=u'快递公司', choices=SIGN_EXPRESS_CHOICES)
     note = models.CharField(verbose_name=u'备注', max_length=255, null=True)
-    # TODO add status
+    price = models.FloatField(verbose_name=u'价格', null=True, blank=True)
 
+    # TODO add status
+    status = models.IntegerField(verbose_name=u'状态', choices=ORDER_STATUS, default=ORDER_INITIAL)
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
 
-    def status(self):
-        return 0
 
     def statusString(self):
         return u'处理中'
