@@ -11,6 +11,10 @@ urlpatterns = urlpatterns + patterns('backend.fetch_views',
     url(r'^fetch$', 'fetch')
 )
 
+urlpatterns = urlpatterns + patterns('backend.user_views',
+    url(r'^user$', 'user')
+)
+
 '''
 urlpatterns = urlpatterns + patterns('backend.dishes_views',
     url(r'^dishes$', 'dishes'),
