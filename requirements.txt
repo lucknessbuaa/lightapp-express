@@ -18,5 +18,5 @@ days
 django-debug-toolbar
 trunkate
 
-Mysql-python
-django-mysqlpool
+#Mysql-python
+#django-mysqlpool

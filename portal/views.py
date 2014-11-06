@@ -54,8 +54,11 @@ def isRegistered(user):
 
 
 def index(request):
-    logger.debug('welcome to nankuaidi')
-    return render(request, "portal/index.html")
+    if request.user.is_staff:
+        return redirect("/mgr/sign/fetch")
+    else:
+        logger.debug('welcome to nankuaidi')
+        return render(request, "portal/index.html")
 
 
 def login(request):

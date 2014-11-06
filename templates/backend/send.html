@@ -2,12 +2,12 @@
 {% load django_tables2 %}
 
 {% block title %}
-南快递-代取订单
+南快递-代寄订单
 {% endblock %}
 
 {% block css %}
 {{ block.super }}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/backend/fetch.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/backend/send.css">
 {% endblock %}
 
 {% block content %}
@@ -23,7 +23,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <!-- include "backend/search.html" with action="talk" value=request.GET.q href=request.path -->
-            代取订单
+            代寄订单
         </div>
         <div class="panel-body">
             {% render_table table "backend/table_template.html" %}

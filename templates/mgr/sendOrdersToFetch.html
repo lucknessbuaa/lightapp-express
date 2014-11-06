@@ -1,0 +1,48 @@
+{% extends "mgr/layout.html" %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/mgr/send_fetch.css">
+{% endblock %}
+
+{% block body %}
+{% include "mgr/navbar.html" with tab=request.nav.active_tab %}
+
+<div class="container">
+    <ul class="orders list-unstyled">
+    {% for order in orders %}
+        <li class="order">
+            <p>
+                <span class='text-muted'>订单号: {{ order.orderid }}</span>
+                <strong>{{ order.expressName }}</strong>
+                &nbsp;&nbsp;&nbsp;
+                <span>1件</span>
+            </p>
+            
+            <p> 姓名: {{ order.name }}&nbsp;&nbsp;&nbsp;&nbsp;手机: {{ order.phone }} </p>
+            <p> 地址: {{ order.address }} </p>
+            <p class='text-danger'> 备注: {{ order.note|default:'无' }} </p>
+            <p>预约收件时间: <strong>{{ order.time|date:'Y-m-d'}} {{ order.period }}</strong></p>
+            <p class='text-muted small'>{{ order.create_time|date:'Y-m-d h:i' }}</p>
+
+            <p>
+                <form class="form form-inline">
+                    <input type="hidden" name='id' value='{{ order.id }}'>
+                    <input type="text" name='price' class='form-control' 
+                        placeholder='价格/元' style='width: 100px; display: inline;'>
+                    <input type='submit' class="btn btn-success" value='已收件' 
+                            data-loading-text='已收件'>
+                </form>
+            </p>
+        </li> 
+    {% empty %}
+    <li class='text-muted' style="text-align: center;">暂无订单</li>
+    {% endfor %}
+    </ul>
+</div>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script type="text/javascript" 
+        src="{{ STATIC_URL }}js/mgr/send_fetch.js"></script>
+{% endblock %}
